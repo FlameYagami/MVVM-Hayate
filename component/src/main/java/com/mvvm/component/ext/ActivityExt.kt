@@ -1,0 +1,87 @@
+package com.mvvm.component.ext
+
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
+import com.mvvm.component.LiveDataEvent
+import com.mvvm.component.WarpIntent
+import com.mvvm.component.WarpPair
+import com.mvvm.component.startActivity
+import com.mvvm.component.uc.dialog.DialogCircularProgressUtils
+import com.mvvm.component.uc.dialog.ToastType
+import com.mvvm.component.uc.dialog.showDialogToast
+import com.mvvm.component.vm.BaseVm
+
+inline fun <reified V : ViewModel> AppCompatActivity.obtainViewModel() =
+        ViewModelProviders.of(this).get(V::class.java)
+
+fun <E> AppCompatActivity.observerEvent(liveData: LiveData<LiveDataEvent<E>>, block: (E) -> Unit) {
+    liveData.observe(this, Observer { event ->
+        event.getContentIfNotHandled()?.let {
+            block(it)
+        }
+    })
+}
+
+fun AppCompatActivity.startActivity(baseVm: BaseVm) {
+    with(baseVm) {
+        startActivityWithPair(warpPairEvent)
+        startActivityWithIntent(warpIntentEvent)
+    }
+}
+
+fun AppCompatActivity.startActivityWithPair(warpPairEvent: LiveData<LiveDataEvent<WarpPair>>) {
+    observerEvent(warpPairEvent) {
+        startActivity(it)
+    }
+}
+
+fun AppCompatActivity.startActivityWithIntent(warpBundleEvent: LiveData<LiveDataEvent<WarpIntent>>) {
+    observerEvent(warpBundleEvent) {
+        startActivity(it)
+    }
+}
+
+fun AppCompatActivity.sendBroadcast(baseVm: BaseVm) {
+    observerEvent(baseVm.broadcastEvent) {
+        sendBroadcast(it)
+    }
+}
+
+fun AppCompatActivity.dialogToast(baseVm: BaseVm) {
+    with(baseVm) {
+        dialogToastSuccess(dialogToastSuccessEvent)
+        dialogToastFailure(dialogToastFailureEvent)
+        dialogToastWarning(dialogToastWarningEvent)
+    }
+}
+
+fun AppCompatActivity.dialogToastSuccess(dialogToastEvent: LiveData<LiveDataEvent<Boolean>>) {
+    observerEvent(dialogToastEvent) {
+        showDialogToast(supportFragmentManager, ToastType.SUCCESS, it)
+    }
+}
+
+fun AppCompatActivity.dialogToastFailure(dialogToastEvent: LiveData<LiveDataEvent<Boolean>>) {
+    observerEvent(dialogToastEvent) {
+        showDialogToast(supportFragmentManager, ToastType.FAILURE, it)
+    }
+}
+
+fun AppCompatActivity.dialogToastWarning(dialogToastEvent: LiveData<LiveDataEvent<Triple<Boolean, String, Int?>>>) {
+    observerEvent(dialogToastEvent) {
+        showDialogToast(supportFragmentManager, ToastType.WARNING, it.first, it.second, it.third)
+    }
+}
+
+fun AppCompatActivity.dialogProgress(baseVm: BaseVm) {
+    observerEvent(baseVm.dialogProgressEvent) {
+        if (it.first) {
+            DialogCircularProgressUtils.show(this, it.second)
+        } else {
+            DialogCircularProgressUtils.hide()
+        }
+    }
+}

@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        applicationId "com.mvvm.hayate"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.sdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        flavorDimensions "versionCode"
+        multiDexEnabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //签名配置
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name == 'release') {
+                // release
+                outputFileName = "Hayate_${defaultConfig.versionName}_${releaseTime()}_release.apk"
+            } else {
+                outputFileName = "Hayate_${defaultConfig.versionName}_${releaseTime()}_debug.apk"
+            }
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        debug.java.srcDirs += 'build/generated/source/kaptKotlin/debug'
+        release.java.srcDirs += 'build/generated/source/kaptKotlin/release'
+    }
+
+    kapt {
+        generateStubs = true
+        mapDiagnosticLocations = true
+        // 优化编译时间
+        useBuildCache = true
+        javacOptions {
+            option("-Xmaxerrs", 500)
+        }
+    }
+
+    // 优化gradle.properties中transformClassDexBuilderForDebug的时间
+    dexOptions {
+        preDexLibraries true
+        maxProcessCount 8
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation project(':component')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    // Androidx
+    implementation 'com.google.android.material:material:1.0.0'
+}
+
+def static releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}

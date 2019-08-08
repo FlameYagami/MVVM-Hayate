@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- 覆写所有Material主题Button圆角 -->
+    <dimen name="abc_control_corner_material" tools:override="true">8dp</dimen>
+    <dimen name="control_corner_material" tools:override="true">8dp</dimen>
+
+    <!-- SelectView -->
+    <dimen name="sizeSubIcon">40dp</dimen>
+
+    <!-- TipView -->
+    <dimen name="tvWidthImage">250dp</dimen>
+    <dimen name="tvHeightImage">150dp</dimen>
+
+    <!-- CircularProgressBar -->
+    <dimen name="default_stroke_width">7dp</dimen>
+    <dimen name="default_background_stroke_width">3dp</dimen>
+</resources>

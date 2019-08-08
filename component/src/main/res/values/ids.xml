@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="appBarLayout" type="id"/>
+    <item name="refreshLayout" type="id"/>
+    <item name="contentLayout" type="id"/>
+
+    <item name="stickyHeadView" type="id" />
+    <item name="stickyNavView" type="id" />
+    <item name="stickyContentView" type="id" />
+
+    <item name="status_bar_fake_status_bar_view" type="id"/>
+    <item name="status_bar_translucent_view" type="id"/>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppBarView">
+        <attr name="textTitle" format="string"/>
+        <attr name="visibleNav" format="boolean"/>
+        <attr name="visibleMenu" format="boolean"/>
+        <attr name="visibleLogo" format="boolean"/>
+        <attr name="srcNav" format="reference"/>
+        <attr name="srcMenu" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="SelectView">
+        <attr name="textTitle"/>
+        <attr name="textMessage" format="string"/>
+        <attr name="srcIcon" format="reference"/>
+        <attr name="sizeSubIcon" format="dimension"/>
+        <attr name="visibleIcon" format="boolean"/>
+        <attr name="maxLineMessage" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressView">
+        <attr name="color"/>
+        <attr name="indeterminate" format="boolean"/>
+        <attr name="progress" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="TipView">
+        <attr name="imageTip" format="reference"/>
+        <attr name="textTip" format="string"/>
+        <attr name="visibleImage" format="boolean"/>
+        <attr name="visibleText" format="boolean"/>
+        <attr name="widthImage" format="dimension"/>
+        <attr name="heightImage" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ContentLayout">
+        <attr name="imageTip"/>
+        <attr name="textTip"/>
+        <attr name="visibleImage"/>
+        <attr name="visibleText"/>
+        <attr name="widthImage"/>
+        <attr name="heightImage"/>
+    </declare-styleable>
+
+    <attr name="sc_corner_radius" format="dimension"/>
+    <attr name="sc_border_width" format="dimension"/>
+    <attr name="sc_tint_color" format="color"/>
+    <attr name="sc_checked_text_color" format="color"/>
+</resources>

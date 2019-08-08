@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主标题 -->
+    <style name="StyleTitleMain">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSizeTitleMain</item>
+        <item name="android:textColor">@color/colorTitleDark</item>
+    </style>
+
+    <!-- 主副标题-->
+    <style name="StyleTitleMainSubDark">
+        <item name="android:textSize">@dimen/textSizeTitleMainSub</item>
+        <item name="android:textColor">@color/colorTitleDark</item>
+    </style>
+
+    <!-- 主副标题.加粗-->
+    <style name="StyleTitleMainSubDark.Bold" parent="StyleTitleMainSubDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 主副标题亮色-->
+    <style name="StyleTitleMainSubLight">
+        <item name="android:textSize">@dimen/textSizeTitleMainSub</item>
+        <item name="android:textColor">@color/colorTitleLight</item>
+    </style>
+
+    <!-- 副标题暗色-->
+    <style name="StyleTitleSubDark">
+        <item name="android:textSize">@dimen/textSizeTitleSub</item>
+        <item name="android:textColor">@color/colorTitleDark</item>
+    </style>
+
+    <!-- 副标题暗色.加粗 -->
+    <style name="StyleTitleSubDark.Bold" parent="StyleTitleSubDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 副标题亮色-->
+    <style name="StyleTitleSubLight">
+        <item name="android:textSize">@dimen/textSizeTitleSub</item>
+        <item name="android:textColor">@color/colorTitleLight</item>
+    </style>
+
+    <!-- 文字暗色-->
+    <style name="StyleTextDark">
+        <item name="android:textSize">@dimen/textSizeNormal</item>
+        <item name="android:textColor">@color/colorTitleDark</item>
+    </style>
+
+    <!-- 文字亮色-->
+    <style name="StyleTextLight">
+        <item name="android:textSize">@dimen/textSizeNormal</item>
+        <item name="android:textColor">@color/colorTitleLight</item>
+    </style>
+</resources>

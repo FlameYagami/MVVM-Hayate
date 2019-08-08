@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@android:color/white</color>
+    <color name="colorPrimaryDark">@color/colorTitleDark</color>
+    <color name="colorAccent">@color/colorBlue</color>
+
+    <color name="colorRed">#FF3B30</color>
+    <color name="colorBlue">#2B86EF</color>
+    <color name="colorGrey">#DDDDDD</color>
+    <color name="colorGreen">#4CD964</color>
+    <color name="colorYellow">#FFCC45</color>
+    <color name="colorOrange">#FE790D</color>
+
+    <color name="colorTitleDark">#303030</color>
+    <color name="colorTitleLight">#666666</color>
+    <color name="colorText">#999999</color>
+    <color name="colorBackground">#F4F4F4</color>
+    <color name="colorUnChecked">#757575</color>
+    <color name="colorSwitchNormal">#EBEBEB</color>
+    <color name="colorSwitchBackground">#B2B2B2</color>
+    <color name="colorButtonUnEnabled">#D6D7D7</color>
+    <color name="colorTextUnEnabled">#9F9F9F</color>
+
+    <!-- CheckBox -->
+    <color name="checkBoxNormal">@color/colorUnChecked</color>
+    <color name="checkBoxSelectedGreen">@color/colorGreen</color>
+    <color name="checkBoxSelectedRed">@color/colorRed</color>
+</resources>
