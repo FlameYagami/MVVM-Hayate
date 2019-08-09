@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.mvvm.hayate.vm.profile.FeedbackVm" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
+
+        <com.mvvm.component.uc.widget.AppBarView
+            onNavigationClick="@{vm.onNavigationClick}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textTitle="@string/profile_feedback" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/StyleTitleSubLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feedback_account" />
+
+            <TextView
+                style="@style/StyleTitleSubLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.feedbackAccount}"
+                tools:text="123456789@qq.com" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_double"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_double"
+            app:counterEnabled="true"
+            app:counterMaxLength="1000"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/StyleTextLight"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/border_rectangle_color_light"
+                android:gravity="start"
+                android:hint="@string/feedback_problem_description"
+                android:padding="@dimen/activity_padding"
+                android:text="@={vm.description}"
+                tools:text="这是一个非常非常非常非常非常非常非常非常非常非常非常长的测试文字" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.Blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin_double"
+            android:enabled="@{vm.submitEnabled}"
+            android:onClick="@{vm.onSubmitClick}"
+            android:text="@string/feedback_submit" />
+
+    </LinearLayout>
+</layout>

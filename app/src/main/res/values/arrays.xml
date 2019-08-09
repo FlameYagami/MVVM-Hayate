@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="profile_image_type_operation">
+        <item>@string/image_camera</item>
+        <item>@string/image_local</item>
+    </string-array>
+</resources>

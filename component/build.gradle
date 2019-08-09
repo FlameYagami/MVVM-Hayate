@@ -66,6 +66,9 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
     api 'com.google.android.material:material:1.1.0-alpha09'
 
+    // MaterialDialogs
+    api "com.afollestad.material-dialogs:core:$materialDialogVersion"
+
     // Glide
     api 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'

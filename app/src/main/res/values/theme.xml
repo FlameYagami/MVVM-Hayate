@@ -10,8 +10,8 @@
         <item name="android:textViewStyle">@style/TextViewStyle.Default</item>
         <item name="android:windowBackground">@android:color/white</item>
 
-        <!--&lt;!&ndash; MaterialDialog &ndash;&gt;-->
-        <!--<item name="md_corner_radius">@dimen/cardCornerRadius</item>-->
+        <!-- MaterialDialog -->
+        <item name="md_corner_radius">@dimen/cardCornerRadius</item>
     </style>
 
     <style name="TextViewStyle.Default" parent="android:Widget.TextView">

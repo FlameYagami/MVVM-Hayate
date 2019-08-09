@@ -1,3 +1,42 @@
 <resources>
     <string name="app_name">Hayate</string>
+
+    <!-- MainActivity -->
+    <string name="main_mall">购物商城</string>
+    <string name="main_device">我的设备</string>
+    <string name="main_profile">个人中心</string>
+    <string name="main_scene">智能场景</string>
+
+    <!-- ProfileFragment -->
+    <string name="profile">个人信息</string>
+    <string name="profile_common">通用</string>
+    <string name="profile_support">支持</string>
+    <string name="profile_feedback">反馈</string>
+    <string name="profile_version_update">版本升级</string>
+    <string name="user_password_modify">修改密码</string>
+
+    <!-- ProfileDetailActivity -->
+    <string name="profile_setting">个人信息</string>
+    <string name="nickname">昵称</string>
+    <string name="password_modify">密码</string>
+    <string name="profile_icon">头像</string>
+    <string name="nickname_modify">更改名字</string>
+    <string name="nickname_input_hint">昵称</string>
+    <string name="profile_image_type">修改头像</string>
+    <string name="image_camera">拍照</string>
+    <string name="image_local">本地图片</string>
+    <string name="login_exit">退出登录</string>
+
+    <!-- FeedbackCenterActivity -->
+    <string name="feedback_submit">提交</string>
+    <string name="feedback_problem_description">请输入反馈意见</string>
+    <string name="feedback_account">账号: </string>
+
+    <!-- PasswordModifyActivity -->
+    <string name="password_old">当前密码</string>
+    <string name="password_new">新密码(6&#8211;20位)</string>
+    <string name="password_confirm">确认密码(6&#8211;20位)</string>
+    <string name="password_confirm_error">密码不一致</string>
+    <string name="password_input_correct">密码不符合要求</string>
+    <string name="password_wifi_length_hint">请输入8位以上的WiFi密码</string>
 </resources>

@@ -70,8 +70,9 @@ android {
 dependencies {
     implementation project(':component')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    // Androidx
-    implementation 'com.google.android.material:material:1.0.0'
+
+    // BottomNavigationViewEx
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.2'
 }
 
 def static releaseTime() {
