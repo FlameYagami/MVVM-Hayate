@@ -26,12 +26,12 @@ class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
         binding.avatarVm = obtainViewModel<AvatarVm>().apply {
             avatarViewModel = this
             dialogToast(this)
-            dialogProgress(this)
+            dialogCircularProgress(this)
         }
         binding.vm = obtainViewModel<ProfileVm>().apply {
             viewModel = this
             dialogToast(this)
-            dialogProgress(this)
+            dialogCircularProgress(this)
             startActivity(this)
         }
         observerEvent()

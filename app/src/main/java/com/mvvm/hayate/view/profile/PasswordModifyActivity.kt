@@ -1,6 +1,6 @@
 package com.mvvm.hayate.view.profile
 
-import com.mvvm.component.ext.dialogProgress
+import com.mvvm.component.ext.dialogCircularProgress
 import com.mvvm.component.ext.dialogToast
 import com.mvvm.component.ext.observerEvent
 import com.mvvm.component.ext.obtainViewModel
@@ -20,7 +20,7 @@ class PasswordModifyActivity : BaseBindingActivity<ActivityPasswrodModifyBinding
         binding.vm = obtainViewModel<PasswordModifyVm>().apply {
             viewModel = this
             dialogToast(this)
-            dialogProgress(this)
+            dialogCircularProgress(this)
         }
         observerEvent(viewModel.modifyPasswordEvent) {
 

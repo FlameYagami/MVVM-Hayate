@@ -4,10 +4,10 @@ import android.view.View
 import com.mvvm.component.view.base.BaseFragment
 import com.mvvm.hayate.R
 
-class MallFragment : BaseFragment() {
+class ThirdFragment : BaseFragment() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_mall
+        get() = R.layout.fragment_third
 
     override fun initView(view: View) {
 

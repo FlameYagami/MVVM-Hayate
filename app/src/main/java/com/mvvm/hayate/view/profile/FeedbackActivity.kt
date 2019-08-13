@@ -1,6 +1,5 @@
 package com.mvvm.hayate.view.profile
 
-import com.mvvm.component.AppManager
 import com.mvvm.component.ext.*
 import com.mvvm.component.view.base.BaseBindingActivity
 import com.mvvm.hayate.R
@@ -18,7 +17,7 @@ class FeedbackActivity : BaseBindingActivity<ActivityFeedbackBinding>() {
         binding.vm = obtainViewModel<FeedbackVm>().apply {
             viewModel = this
             dialogToast(this)
-            dialogProgress(this)
+            dialogCircularProgress(this)
         }
         observerEvent(viewModel.submitFeedbackEvent) {
 

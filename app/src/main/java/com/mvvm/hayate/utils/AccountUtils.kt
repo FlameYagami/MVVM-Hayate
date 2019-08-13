@@ -1,6 +1,5 @@
 package com.mvvm.hayate.utils
 
-import com.mvvm.component.BaseApplication
 import com.mvvm.component.BaseApplication.Companion.context
 import com.mvvm.hayate.R
 
@@ -18,12 +17,5 @@ object AccountUtils {
      */
     fun checkConfirmPassword(newPassword: String, cfmPassword: String): String {
         return if (newPassword != cfmPassword) context.getString(R.string.password_confirm_error) else ""
-    }
-
-    /**
-     * 验证密码合法性
-     */
-    fun checkWifiPassword(password: String): String {
-        return if (8 > password.length) BaseApplication.context.getString(R.string.password_wifi_length_hint) else ""
     }
 }

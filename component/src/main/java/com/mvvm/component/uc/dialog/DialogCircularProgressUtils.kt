@@ -1,8 +1,8 @@
 package com.mvvm.component.uc.dialog
 
-import android.content.Context
 import android.content.DialogInterface
 import android.view.KeyEvent
+import androidx.fragment.app.FragmentManager
 import io.reactivex.disposables.Disposable
 
 /**
@@ -13,14 +13,14 @@ object DialogCircularProgressUtils {
 
     private var dialog: DialogCircularProgress? = null
 
-    fun show(context: Context, disposable: Disposable? = null) {
+    fun show(fragmentManager: FragmentManager, disposable: Disposable? = null) {
         hide()
         val keyListener = getKeyListener(disposable)
-        dialog = DialogCircularProgress(context, keyListener).apply { show() }
+        dialog = showDialogCircularProgress(fragmentManager, keyListener)
     }
 
     fun hide() {
-        dialog?.takeIf { it.isShowing }?.dismiss()
+        dialog?.hide()
         dialog = null
     }
 

@@ -1,91 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="avatarVm"
-            type="com.mvvm.hayate.vm.main.AvatarVm" />
-
-        <variable
-            name="vm"
-            type="com.mvvm.hayate.vm.profile.ProfileDetailVm" />
-    </data>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        android:orientation="vertical">
-
-        <com.mvvm.component.uc.widget.AppBarView
-            onNavigationClick="@{vm.onNavigationClick}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:textTitle="@string/profile_setting" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/StyleCardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-            <com.mvvm.component.uc.widget.SelectView
-                subCircleErrorSrc="@{avatarVm.profileIconError}"
-                subCirclePath="@{avatarVm.profileIconPath}"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:gravity="center_vertical"
-                android:onClick="@{avatarVm.onProfileIconClick}"
-                app:srcIcon="@drawable/ic_user_profile_icon"
-                app:textTitle="@string/profile_icon"
-                tools:src="@drawable/ic_profile_icon"
-                tools:textMessage="" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/StyleCardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_vertical_margin">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.mvvm.component.uc.widget.SelectView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{vm.onNicknameClick}"
-                    app:srcIcon="@drawable/ic_user_nickname"
-                    app:textMessage="@{vm.nickname}"
-                    app:textTitle="@string/nickname"
-                    tools:textMessage="Flame" />
-
-                <com.mvvm.component.uc.widget.SelectView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{vm.onPasswordModifyClick}"
-                    app:srcIcon="@drawable/ic_user_password"
-                    app:textTitle="@string/password_modify"
-                    tools:textMessage="" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.Red"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin_double"
-            android:layout_marginTop="@dimen/activity_vertical_margin_half"
-            android:layout_marginRight="@dimen/activity_horizontal_margin_double"
-            android:onClick="@{vm.onLogout}"
-            android:text="@string/login_exit" />
-    </LinearLayout>
+        xmlns:tools="http://schemas.android.com/tools">
+	
+	<data>
+		
+		<variable
+				name="avatarVm"
+				type="com.mvvm.hayate.vm.main.AvatarVm"/>
+		
+		<variable
+				name="vm"
+				type="com.mvvm.hayate.vm.profile.ProfileDetailVm"/>
+	</data>
+	
+	<LinearLayout
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/colorBackground"
+			android:orientation="vertical">
+		
+		<com.mvvm.component.uc.widget.AppBarView
+				onNavigationClick="@{vm.onNavigationClick}"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:textTitle="@string/profile_setting"/>
+		
+		<com.google.android.material.card.MaterialCardView
+				style="@style/StyleCardView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/activity_horizontal_margin"
+				android:layout_marginTop="@dimen/activity_vertical_margin"
+				android:layout_marginRight="@dimen/activity_horizontal_margin">
+			
+			<com.mvvm.component.uc.widget.SelectView
+					subCircleErrorSrc="@{avatarVm.profileIconError}"
+					subCirclePath="@{avatarVm.profileIconPath}"
+					android:layout_width="match_parent"
+					android:layout_height="72dp"
+					android:gravity="center_vertical"
+					android:onClick="@{avatarVm.onProfileIconClick}"
+					app:srcIcon="@drawable/ic_user_profile_icon"
+					app:textTitle="@string/profile_icon"
+					tools:src="@drawable/ic_profile_icon"
+					tools:textMessage=""/>
+		</com.google.android.material.card.MaterialCardView>
+		
+		<com.google.android.material.card.MaterialCardView
+				style="@style/StyleCardView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/activity_vertical_margin">
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+				
+				<com.mvvm.component.uc.widget.SelectView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:onClick="@{vm.onNicknameClick}"
+						app:srcIcon="@drawable/ic_user_nickname"
+						app:textMessage="@{vm.nickname}"
+						app:textTitle="@string/nickname"
+						tools:textMessage="Flame"/>
+				
+				<com.mvvm.component.uc.widget.SelectView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:onClick="@{vm.onPasswordModifyClick}"
+						app:srcIcon="@drawable/ic_user_password"
+						app:textTitle="@string/password_modify"
+						tools:textMessage=""/>
+			
+			</LinearLayout>
+		
+		</com.google.android.material.card.MaterialCardView>
+		
+		<com.google.android.material.button.MaterialButton
+				style="@style/Widget.MaterialComponents.Button.Red"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/activity_horizontal_margin_double"
+				android:layout_marginTop="@dimen/activity_vertical_margin_half"
+				android:layout_marginRight="@dimen/activity_horizontal_margin_double"
+				android:onClick="@{vm.onLogout}"
+				android:text="@string/login_exit"/>
+	</LinearLayout>
 </layout>

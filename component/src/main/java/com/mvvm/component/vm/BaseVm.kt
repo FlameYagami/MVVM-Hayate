@@ -15,7 +15,7 @@ open class BaseVm : ViewModel() {
     val dialogToastSuccessEvent = MutableLiveData<LiveDataEvent<Boolean>>()
     val dialogToastFailureEvent = MutableLiveData<LiveDataEvent<Boolean>>()
     val dialogToastWarningEvent = MutableLiveData<LiveDataEvent<Triple<Boolean, String, Int?>>>()
-    val dialogProgressEvent = MutableLiveData<LiveDataEvent<Pair<Boolean, Disposable?>>>()
+    val dialogCircularProgressEvent = MutableLiveData<LiveDataEvent<Pair<Boolean, Disposable?>>>()
     val broadcastEvent = MutableLiveData<LiveDataEvent<Intent>>()
 
     fun dialogToastSuccess(applyNavigation: Boolean = false) {

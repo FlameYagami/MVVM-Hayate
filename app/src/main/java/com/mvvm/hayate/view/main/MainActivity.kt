@@ -16,9 +16,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         get() = R.layout.activity_main
 
     private val tabFragmentClass = arrayOf(
-        DeviceFragment::class.java,
-        SceneFragment::class.java,
-        MallFragment::class.java,
+        FirstFragment::class.java,
+        SecondFragment::class.java,
+        ThirdFragment::class.java,
         ProfileFragment::class.java
     )
 

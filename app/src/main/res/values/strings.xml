@@ -1,11 +1,36 @@
 <resources>
     <string name="app_name">Hayate</string>
 
+    <!-- LoadingActivity -->
+    <string name="copy_right">CopyRight 2016&#8211;2020</string>
+
+    <!-- LoginActivity -->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="password_input_hint">密码</string>
+    <string name="password_input_correct">密码不符合要求</string>
+
+    <!-- RegisterActivity -->
+    <string name="password_condition">密码(6&#8211;20位)</string>
+    <string name="code_input_title">输入验证码</string>
+    <string name="code_input_error">验证码错误</string>
+    <string name="code_send_already">验证码已发送至: </string>
+    <string name="code_resend">重新发送</string>
+    <string name="code_second">s</string>
+    <string name="code_email_hint">未找到验证码邮件, 请查看垃圾邮件</string>
+
+    <!-- PasswordForgetActivity -->
+    <string name="password_forget">忘记密码</string>
+
+    <!-- PasswordResetActivity -->
+    <string name="password_reset_title">重置密码</string>
+    <string name="password_new_condition">新密码(6&#8211;20位)</string>
+
     <!-- MainActivity -->
-    <string name="main_mall">购物商城</string>
-    <string name="main_device">我的设备</string>
+    <string name="main_first">场景一</string>
+    <string name="main_second">场景二</string>
+    <string name="main_mall">场景三</string>
     <string name="main_profile">个人中心</string>
-    <string name="main_scene">智能场景</string>
 
     <!-- ProfileFragment -->
     <string name="profile">个人信息</string>
@@ -37,6 +62,5 @@
     <string name="password_new">新密码(6&#8211;20位)</string>
     <string name="password_confirm">确认密码(6&#8211;20位)</string>
     <string name="password_confirm_error">密码不一致</string>
-    <string name="password_input_correct">密码不符合要求</string>
     <string name="password_wifi_length_hint">请输入8位以上的WiFi密码</string>
 </resources>

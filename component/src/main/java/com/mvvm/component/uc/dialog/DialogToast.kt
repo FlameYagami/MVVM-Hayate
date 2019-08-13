@@ -66,6 +66,12 @@ class DialogToast : DialogFragment() {
             }
         }
     }
+
+    fun hide() {
+        if (showsDialog) {
+            dismiss()
+        }
+    }
 }
 
 /**
@@ -86,7 +92,7 @@ fun showDialogToast(
         val data = DialogToastData(type, applyNavigation, strMessage, resMessage)
         arguments = Bundle().apply { putSerializable(DialogToastData::class.java.simpleName, data) }
         show(fragmentManager, DialogToast::class.java.simpleName)
-        delayMain(this, DELAY_TIME_DEFAULT) { if (showsDialog) dismiss() }
+        delayMain(this, DELAY_TIME_DEFAULT) { hide() }
     }
 }
 

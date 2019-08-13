@@ -3,17 +3,20 @@ package com.mvvm.hayate.view.main
 import com.mvvm.component.ext.obtainViewModel
 import com.mvvm.component.view.base.BaseBindingFragment
 import com.mvvm.hayate.R
-import com.mvvm.hayate.databinding.FragmentDeviceBinding
+import com.mvvm.hayate.databinding.FragmentFirstBinding
 import com.mvvm.hayate.vm.main.DeviceVm
 
-class DeviceFragment : BaseBindingFragment<FragmentDeviceBinding>() {
+class FirstFragment : BaseBindingFragment<FragmentFirstBinding>() {
+
+    lateinit var viewModel: DeviceVm
 
     override val layoutId: Int
-        get() = R.layout.fragment_device
+        get() = R.layout.fragment_first
 
-    override fun initView(binding: FragmentDeviceBinding) {
+    override fun initView(binding: FragmentFirstBinding) {
         obtainViewModel<DeviceVm>().apply {
             binding.vm = this
+            viewModel = this
         }
         observerEvent()
     }

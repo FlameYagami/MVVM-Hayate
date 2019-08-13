@@ -1,11 +1,12 @@
 package com.mvvm.hayate.view.profile
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
+import com.mvvm.component.AppManager
 import com.mvvm.component.ext.*
+import com.mvvm.component.uc.dialog.DialogCircularProgressUtils
 import com.mvvm.component.view.base.BaseBindingActivity
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityProfileDetailBinding
@@ -24,13 +25,13 @@ class ProfileDetailActivity : BaseBindingActivity<ActivityProfileDetailBinding>(
         binding.avatarVm = obtainViewModel<AvatarVm>().apply {
             avatarViewModel = this
             dialogToast(this)
-            dialogProgress(this)
+            dialogCircularProgress(this)
             startActivity(this)
         }
         binding.vm = obtainViewModel<ProfileDetailVm>().apply {
             viewModel = this
             dialogToast(this)
-            dialogProgress(this)
+            dialogCircularProgress(this)
             startActivity(this)
         }
         observerEvent()

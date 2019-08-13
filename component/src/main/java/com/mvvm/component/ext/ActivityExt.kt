@@ -76,10 +76,10 @@ fun AppCompatActivity.dialogToastWarning(dialogToastEvent: LiveData<LiveDataEven
     }
 }
 
-fun AppCompatActivity.dialogProgress(baseVm: BaseVm) {
-    observerEvent(baseVm.dialogProgressEvent) {
+fun AppCompatActivity.dialogCircularProgress(baseVm: BaseVm) {
+    observerEvent(baseVm.dialogCircularProgressEvent) {
         if (it.first) {
-            DialogCircularProgressUtils.show(this, it.second)
+            DialogCircularProgressUtils.show(supportFragmentManager, it.second)
         } else {
             DialogCircularProgressUtils.hide()
         }

@@ -18,7 +18,7 @@
             android:id="@+id/viewAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textTitle="@string/main_scene"
+            app:textTitle="@string/main_second"
             app:visibleNav="false" />
     </LinearLayout>
 </layout>

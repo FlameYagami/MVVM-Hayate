@@ -76,10 +76,10 @@ fun Fragment.dialogToastWarning(dialogToastEvent: LiveData<LiveDataEvent<Triple<
     }
 }
 
-fun Fragment.dialogProgress(baseVm: BaseVm) {
-    observerEvent(baseVm.dialogProgressEvent) {
+fun Fragment.dialogCircularProgress(baseVm: BaseVm) {
+    observerEvent(baseVm.dialogCircularProgressEvent) {
         if (it.first) {
-            DialogCircularProgressUtils.show(context!!, it.second)
+            DialogCircularProgressUtils.show(fragmentManager!!, it.second)
         } else {
             DialogCircularProgressUtils.hide()
         }

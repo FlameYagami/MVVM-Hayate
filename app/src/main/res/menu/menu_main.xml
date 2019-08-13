@@ -3,12 +3,12 @@
     <item
             android:id="@+id/item_device"
             android:icon="@drawable/selector_bottom_device"
-            android:title="@string/main_device"/>
+            android:title="@string/main_first"/>
 
     <item
             android:id="@+id/item_scene"
             android:icon="@drawable/selector_bottom_scene"
-            android:title="@string/main_scene"/>
+            android:title="@string/main_second"/>
 
     <item
             android:id="@+id/item_mall"
