@@ -17,7 +17,6 @@ import android.widget.AbsListView
 import androidx.core.content.ContextCompat
 import androidx.core.math.MathUtils
 import androidx.core.view.*
-import com.znwx.component.uc.refresh.ProgressDrawable
 
 class RefreshLayout constructor(context: Context, attrs: AttributeSet? = null) : ViewGroup(context, attrs),
         NestedScrollingParent {

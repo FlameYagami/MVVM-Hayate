@@ -1,4 +1,4 @@
-package com.znwx.component.uc.refresh
+package com.mvvm.component.uc.refresh
 
 import android.content.Context
 import android.graphics.*

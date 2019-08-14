@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvItemTitle"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/selector_background_common"
+    android:gravity="start|center_vertical"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:textColor="@color/colorTitleDark"
+    android:textSize="@dimen/textSizeTitleSub"
+    tools:text="Item" />

@@ -108,8 +108,10 @@ inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
  */
 fun View.doOnLayout(onLayout: (View) -> Boolean) {
     addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
-        override fun onLayoutChange(view: View, left: Int, top: Int, right: Int, bottom: Int,
-                                    oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
+        override fun onLayoutChange(
+            view: View, left: Int, top: Int, right: Int, bottom: Int,
+            oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int
+        ) {
             if (onLayout(view)) {
                 view.removeOnLayoutChangeListener(this)
             }
