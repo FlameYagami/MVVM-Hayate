@@ -4,7 +4,7 @@ package com.mvvm.component.ext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.mvvm.component.LiveDataEvent
-import com.mvvm.component.vm.BaseVm
+import com.mvvm.component.view.BaseVm
 import com.trello.rxlifecycle3.android.lifecycle.kotlin.bindUntilEvent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

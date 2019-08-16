@@ -4,7 +4,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.viewpager.widget.ViewPager
-import com.mvvm.component.view.base.BaseFragmentAdapter
+import com.mvvm.component.view.BaseFragmentAdapter
 
 @BindingAdapter("fragmentAdapter")
 fun setDeviceFragmentAdapter(view: ViewPager, adapter: BaseFragmentAdapter) {

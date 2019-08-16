@@ -7,7 +7,7 @@
 		
 		<variable
 				name="vm"
-				type="com.mvvm.hayate.vm.login.LoginVm"/>
+				type="com.mvvm.hayate.ui.login.LoginVm"/>
 	</data>
 	
 	<RelativeLayout

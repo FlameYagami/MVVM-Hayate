@@ -6,11 +6,11 @@
 		
 		<variable
 				name="avatarVm"
-				type="com.mvvm.hayate.vm.profile.AvatarVm"/>
+				type="com.mvvm.hayate.ui.profile.AvatarVm"/>
 		
 		<variable
 				name="vm"
-				type="com.mvvm.hayate.vm.main.ProfileVm"/>
+				type="com.mvvm.hayate.ui.main.ProfileVm"/>
 	</data>
 	
 	<androidx.coordinatorlayout.widget.CoordinatorLayout

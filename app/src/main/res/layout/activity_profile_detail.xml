@@ -6,11 +6,11 @@
 		
 		<variable
 				name="avatarVm"
-				type="com.mvvm.hayate.vm.profile.AvatarVm"/>
+				type="com.mvvm.hayate.ui.profile.AvatarVm"/>
 		
 		<variable
 				name="vm"
-				type="com.mvvm.hayate.vm.profile.ProfileDetailVm"/>
+				type="com.mvvm.hayate.ui.profile.ProfileDetailVm"/>
 	</data>
 	
 	<LinearLayout

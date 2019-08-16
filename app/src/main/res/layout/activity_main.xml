@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="vm" type="com.mvvm.hayate.vm.main.MainVm"/>
+	    <variable name="vm" type="com.mvvm.hayate.ui.main.MainVm"/>
     </data>
 
     <RelativeLayout

@@ -6,7 +6,7 @@
 		
 		<variable
 				name="vm"
-				type="com.mvvm.hayate.vm.main.DeviceVm"/>
+				type="com.mvvm.hayate.ui.main.FirstVm"/>
 	</data>
 	
 	<LinearLayout

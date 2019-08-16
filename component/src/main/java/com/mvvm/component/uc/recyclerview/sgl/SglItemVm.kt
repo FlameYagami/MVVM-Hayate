@@ -2,9 +2,9 @@ package com.mvvm.component.uc.recyclerview.sgl
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import com.mvvm.component.uc.widget.RefreshStatus
-import com.mvvm.component.vm.BaseVm
 import com.mvvm.component.uc.recyclerview.LayoutManagerHelper
+import com.mvvm.component.uc.widget.RefreshStatus
+import com.mvvm.component.view.BaseVm
 
 /**
  * Created by FlameYagami on 2018/1/3.

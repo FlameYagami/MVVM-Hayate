@@ -5,7 +5,7 @@
 		
 		<variable
 				name="vm"
-				type="com.mvvm.hayate.vm.profile.PasswordModifyVm"/>
+				type="com.mvvm.hayate.ui.profile.PasswordModifyVm"/>
 	</data>
 	
 	<LinearLayout

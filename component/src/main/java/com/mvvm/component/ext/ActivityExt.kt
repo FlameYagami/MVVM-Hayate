@@ -12,7 +12,7 @@ import com.mvvm.component.startActivity
 import com.mvvm.component.uc.dialog.DialogCircularProgressUtils
 import com.mvvm.component.uc.dialog.ToastType
 import com.mvvm.component.uc.dialog.showDialogToast
-import com.mvvm.component.vm.BaseVm
+import com.mvvm.component.view.BaseVm
 
 inline fun <reified V : ViewModel> AppCompatActivity.obtainViewModel() =
         ViewModelProviders.of(this).get(V::class.java)

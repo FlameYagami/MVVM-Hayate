@@ -15,7 +15,7 @@
 			tools:ignore="AllowBackup,GoogleAppIndexingWarning"
 			tools:targetApi="n">
 		
-		<activity android:name=".view.prepose.LoadingActivity"
+		<activity android:name="com.mvvm.hayate.ui.prepose.LoadingActivity"
 		          android:theme="@style/AppTheme.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -24,19 +24,19 @@
 			</intent-filter>
 		</activity>
 		
-		<activity android:name=".view.login.LoginActivity"
+		<activity android:name="com.mvvm.hayate.ui.login.LoginActivity"
 		          android:theme="@style/AppTheme.Fullscreen"/>
 		
 		<activity
-				android:name=".view.main.MainActivity"
+				android:name="com.mvvm.hayate.ui.main.MainActivity"
 				android:configChanges="orientation|screenSize|keyboardHidden|navigation"
 				android:launchMode="singleTask"
 				android:windowSoftInputMode="adjustResize">
 		</activity>
 		
-		<activity android:name=".view.profile.FeedbackActivity"/>
-		<activity android:name=".view.profile.ProfileDetailActivity"/>
-		<activity android:name=".view.profile.PasswordModifyActivity"/>
+		<activity android:name="com.mvvm.hayate.ui.profile.FeedbackActivity"/>
+		<activity android:name="com.mvvm.hayate.ui.profile.ProfileDetailActivity"/>
+		<activity android:name="com.mvvm.hayate.ui.profile.PasswordModifyActivity"/>
 		
 		<!-- 8.0 Install Apk -->
 		<provider

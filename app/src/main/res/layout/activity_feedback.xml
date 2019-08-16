@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="vm"
-            type="com.mvvm.hayate.vm.profile.FeedbackVm" />
+		        name="vm"
+		        type="com.mvvm.hayate.ui.profile.FeedbackVm"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
