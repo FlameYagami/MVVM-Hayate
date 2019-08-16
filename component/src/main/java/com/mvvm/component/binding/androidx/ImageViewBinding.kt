@@ -13,7 +13,7 @@ fun setGlideSrc(view: ImageView, src: Int) {
     else view.load(src)
 }
 
-@BindingAdapter("profileIconPath", "profileIconError")
+@BindingAdapter("avatarPath", "avatarErrorRes")
 fun setProfileIconPath(view: ImageView, path: String, src: Int) {
     view.loadCircle(path, src)
 }

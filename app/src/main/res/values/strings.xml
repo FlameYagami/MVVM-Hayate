@@ -7,6 +7,7 @@
     <!-- LoginActivity -->
     <string name="login">登录</string>
     <string name="register">注册</string>
+    <string name="username_input_hint">账号</string>
     <string name="password_input_hint">密码</string>
     <string name="password_input_correct">密码不符合要求</string>
 
@@ -43,14 +44,21 @@
     <!-- ProfileDetailActivity -->
     <string name="profile_setting">个人信息</string>
     <string name="nickname">昵称</string>
-    <string name="password_modify">密码</string>
+    <string name="sex">性别</string>
+    <string name="birthday">出生年月</string>
+    <string name="password_modify">修改密码</string>
+    <string name="user_id">疾风号</string>
     <string name="profile_icon">头像</string>
     <string name="nickname_modify">更改名字</string>
     <string name="nickname_input_hint">昵称</string>
     <string name="profile_image_type">修改头像</string>
     <string name="image_camera">拍照</string>
     <string name="image_local">本地图片</string>
-    <string name="login_exit">退出登录</string>
+    <string name="secret">就不告诉你</string>
+    <string name="male">小哥哥</string>
+    <string name="female">小姐姐</string>
+    <string name="logout">退出</string>
+    <string name="logout_message">确认退出当前帐号?</string>
 
     <!-- FeedbackCenterActivity -->
     <string name="feedback_submit">提交</string>
@@ -63,4 +71,12 @@
     <string name="password_confirm">确认密码(6&#8211;20位)</string>
     <string name="password_confirm_error">密码不一致</string>
     <string name="password_wifi_length_hint">请输入8位以上的WiFi密码</string>
+    
+    <!-- 升级 -->
+    <string name="check_update">检测升级</string>
+    <string name="app_update">应用升级</string>
+    <string name="version_latest">已是最新版本</string>
+    <string name="app_version_update_message">新版本:%s, 是否立即升级?</string>
+    <string name="app_download_background">应用后台下载中&#8230;</string>
+    <string name="app_download_error">下载出错,请稍后重试!</string>
 </resources>

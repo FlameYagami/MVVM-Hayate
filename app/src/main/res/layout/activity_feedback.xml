@@ -31,13 +31,13 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:orientation="horizontal">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/StyleTitleSubLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/feedback_account" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/StyleTitleSubLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

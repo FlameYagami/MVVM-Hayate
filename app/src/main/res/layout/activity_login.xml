@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+	
+	<data>
+		
+		<variable
+				name="vm"
+				type="com.mvvm.hayate.vm.login.LoginVm"/>
+	</data>
+	
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+		
+		<LinearLayout
+				android:id="@+id/ll_center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:layout_marginLeft="@dimen/activity_horizontal_margin_double"
+				android:layout_marginRight="@dimen/activity_horizontal_margin_double"
+				android:gravity="center"
+				android:orientation="vertical">
+			
+			<FrameLayout
+					android:layout_width="96dp"
+					android:layout_height="96dp"
+					android:layout_marginBottom="@dimen/activity_vertical_margin">
+				
+				<androidx.appcompat.widget.AppCompatImageView
+						avatarPath="@{vm.avatarPath}"
+						avatarErrorRes="@{vm.avatarErrorRes}"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_gravity="center"
+						android:background="@drawable/shape_round_line_white"
+						android:padding="4dp"
+						tools:src="@drawable/ic_avatar"/>
+			</FrameLayout>
+			
+			<com.google.android.material.textfield.TextInputLayout
+					android:hint="@string/username_input_hint"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				
+				<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="48dp"
+						android:text="@={vm.username}"/>
+			
+			</com.google.android.material.textfield.TextInputLayout>
+			
+			<com.google.android.material.textfield.TextInputLayout
+					android:hint="@string/password_input_hint"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:passwordToggleEnabled="true">
+				
+				<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/txt_password"
+						android:layout_width="match_parent"
+						android:layout_height="48dp"
+						android:inputType="textPassword"
+						android:text="@={vm.password}"/>
+			</com.google.android.material.textfield.TextInputLayout>
+			
+			<com.google.android.material.button.MaterialButton
+					style="@style/Widget.MaterialComponents.Button.Blue"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/activity_vertical_margin"
+					android:enabled="@{vm.loginEnabled}"
+					android:onClick="@{vm.onLoginClick}"
+					android:text="@string/login"/>
+			
+			<com.google.android.material.button.MaterialButton
+					style="@style/Widget.MaterialComponents.Button.Outlined"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/activity_vertical_margin_half"
+					android:onClick="@{vm.onRegisterClick}"
+					android:text="@string/register"/>
+			
+			<androidx.appcompat.widget.AppCompatButton
+					style="@style/Widget.AppCompat.Button.Borderless.Default"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:onClick="@{vm.onPasswordForgetClick}"
+					android:text="@string/password_forget"/>
+		</LinearLayout>
+	
+	</RelativeLayout>
+
+</layout>

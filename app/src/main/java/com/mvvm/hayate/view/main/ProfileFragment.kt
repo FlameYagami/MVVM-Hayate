@@ -2,16 +2,16 @@ package com.mvvm.hayate.view.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.list.listItems
 import com.mvvm.component.ext.*
+import com.mvvm.component.uc.dialog.MaterialDialogList
 import com.mvvm.component.view.base.BaseBindingFragment
+import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.FragmentProfileBinding
 import com.mvvm.hayate.model.event.NicknameChangedEvent
 import com.mvvm.hayate.model.event.ProfileIconChangedEvent
-import com.mvvm.hayate.vm.main.AvatarVm
 import com.mvvm.hayate.vm.main.ProfileVm
+import com.mvvm.hayate.vm.profile.AvatarVm
 import org.greenrobot.eventbus.Subscribe
 
 class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
@@ -38,24 +38,24 @@ class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
     }
 
     private fun observerEvent() {
-        observerEvent(avatarViewModel.selectProfileIconEvent) {
-            MaterialDialog(context!!).show {
+        observerEvent(avatarViewModel.selectAvatarEvent) {
+            MaterialDialogList(context!!).show {
                 title(R.string.profile_image_type)
                 listItems(R.array.profile_image_type_operation) { _, index, _ ->
                     if (0 == index) avatarViewModel.takePhoto()
                     else avatarViewModel.chooseLocal()
                 }
             }
-
         }
-        observerEvent(avatarViewModel.uploadProfileIconEvent) {
-
+        observerEvent(avatarViewModel.uploadAvatarEvent) {
+            ProfileManager.saveAvatar(it)
+            avatarViewModel.updateAvatar()
         }
         observerEvent(avatarViewModel.startActivityForResultEvent) {
             startActivityForResult(it.first, it.second)
         }
         observerEvent(viewModel.checkAppUpdateEvent) {
-
+            viewModel.dialogToastWarning(true, getString(R.string.version_latest))
         }
     }
 
@@ -74,12 +74,12 @@ class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        avatarViewModel.handleProfileIconRequestCode(requestCode, data)
+        avatarViewModel.handleAvatarRequestCode(requestCode, data)
     }
 
     @Subscribe
     fun onProfileIconChangedEvent(event: ProfileIconChangedEvent) {
-        avatarViewModel.setProfileIcon()
+        avatarViewModel.updateAvatar()
     }
 
     @Subscribe

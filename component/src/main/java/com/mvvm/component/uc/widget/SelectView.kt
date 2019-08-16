@@ -6,14 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.mvvm.component.R
-import com.mvvm.component.ext.clear
-import com.mvvm.component.ext.gone
-import com.mvvm.component.ext.loadCircle
+import com.mvvm.component.ext.*
 import kotlinx.android.synthetic.main.widget_select.view.*
 
 class SelectView(context: Context, attributeSet: AttributeSet? = null) : RelativeLayout(context, attributeSet) {
 
-    var subIconSize = 0
+    private var subIconSize = 0
 
     init {
         LayoutInflater.from(context).inflate(R.layout.widget_select, this)
@@ -27,6 +25,7 @@ class SelectView(context: Context, attributeSet: AttributeSet? = null) : Relativ
             context.resources.getDimensionPixelSize(R.dimen.sizeSubIcon)
         )
         val iconVisible = typedArray.getBoolean(R.styleable.SelectView_visibleIcon, true)
+        val arrowVisible = typedArray.getBoolean(R.styleable.SelectView_visibleArrow, true)
         val maxLineMessage = typedArray.getInt(R.styleable.SelectView_maxLineMessage, 1)
         typedArray.recycle()
 
@@ -39,6 +38,9 @@ class SelectView(context: Context, attributeSet: AttributeSet? = null) : Relativ
             imgIcon.setImageResource(iconResId)
         } else {
             imgIcon.gone()
+        }
+        if (!arrowVisible){
+            imgRightArrow.inVisible()
         }
     }
 
@@ -70,5 +72,9 @@ class SelectView(context: Context, attributeSet: AttributeSet? = null) : Relativ
         } ?: apply {
             imgSub.clear()
         }
+    }
+
+    fun setArrowVisible(visible: Boolean){
+        if (visible) imgRightArrow.visible() else imgRightArrow.inVisible()
     }
 }

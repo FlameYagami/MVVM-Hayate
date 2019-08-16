@@ -16,6 +16,7 @@
         <attr name="sizeSubIcon" format="dimension"/>
         <attr name="visibleIcon" format="boolean"/>
         <attr name="maxLineMessage" format="integer"/>
+        <attr name="visibleArrow" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="ProgressView">

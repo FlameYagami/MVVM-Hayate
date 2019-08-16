@@ -4,4 +4,10 @@
         <item>@string/image_camera</item>
         <item>@string/image_local</item>
     </string-array>
+    
+    <string-array name="profile_sex_operation">
+        <item>@string/secret</item>
+        <item>@string/male</item>
+        <item>@string/female</item>
+    </string-array>
 </resources>

@@ -1,4 +1,4 @@
-package com.mvvm.hayate.vm.main
+package com.mvvm.hayate.vm.profile
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -17,6 +17,7 @@ import com.mvvm.component.utils.FileUtils
 import com.mvvm.component.vm.BaseVm
 import com.mvvm.hayate.BuildConfig
 import com.mvvm.hayate.PathManager
+import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.orhanobut.logger.Logger
 import java.io.BufferedOutputStream
@@ -25,11 +26,11 @@ import java.io.FileOutputStream
 
 class AvatarVm : BaseVm() {
 
-    var profileIconPath = ObservableField("")
-    var profileIconError = ObservableInt(R.drawable.ic_profile_icon)
+    var avatarPath = ObservableField("")
+    var avatarErrorRes = ObservableInt(R.drawable.ic_avatar)
 
-    val selectProfileIconEvent = MutableLiveData<LiveDataEvent<Unit>>()
-    val uploadProfileIconEvent = MutableLiveData<LiveDataEvent<String>>()
+    val selectAvatarEvent = MutableLiveData<LiveDataEvent<Unit>>()
+    val uploadAvatarEvent = MutableLiveData<LiveDataEvent<String>>()
     val startActivityForResultEvent = MutableLiveData<LiveDataEvent<Pair<Intent, Int>>>()
 
     enum class AvatarType(private val value: Int) {
@@ -41,18 +42,18 @@ class AvatarVm : BaseVm() {
     }
 
     init {
-        setProfileIcon()
+        updateAvatar()
     }
 
-    fun setProfileIcon() {
-
+    fun updateAvatar() {
+        avatarPath.set(ProfileManager.avatarPath ?: "")
     }
 
     /**
      * 点击事件 -> 头像修改
      */
-    var onProfileIconClick = View.OnClickListener {
-        selectProfileIconEvent.value = LiveDataEvent(Unit)
+    var onAvatarClick = View.OnClickListener {
+        selectAvatarEvent.value = LiveDataEvent(Unit)
     }
 
     /**
@@ -84,7 +85,7 @@ class AvatarVm : BaseVm() {
         }
     }
 
-    fun handleProfileIconRequestCode(requestCode: Int, data: Intent?) {
+    fun handleAvatarRequestCode(requestCode: Int, data: Intent?) {
         when (requestCode) {
             AvatarType.TYPE_CAMERA.value() -> cropImageBySdk()
             AvatarType.TYPE_LOCAL.value() -> data?.data?.apply { cropImage(this) }
@@ -113,7 +114,7 @@ class AvatarVm : BaseVm() {
                 compress(Bitmap.CompressFormat.JPEG, 100, bos)
                 bos.flush()
                 bos.close()
-                uploadProfileIconEvent.value = LiveDataEvent(profileIconTempFile.path)
+                uploadAvatarEvent.value = LiveDataEvent(profileIconTempFile.path)
             } catch (e: Exception) {
                 Logger.e("saveCropImage => ${e.message}")
             }

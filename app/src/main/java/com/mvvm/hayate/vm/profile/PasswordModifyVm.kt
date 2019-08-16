@@ -20,7 +20,7 @@ class PasswordModifyVm : BaseVm() {
     var passwordOldError = ObservableField("")
     var passwordNewError = ObservableField("")
     var passwordCfmError = ObservableField("")
-    var downEnabled = ObservableBoolean(false)
+    var completeEnabled = ObservableBoolean(false)
 
     var modifyPasswordEvent = MutableLiveData<LiveDataEvent<Unit>>()
 
@@ -34,7 +34,7 @@ class PasswordModifyVm : BaseVm() {
                 val errorHint = AccountUtils.checkPassword(oldPassword.get().toString())
                 passwordOldErrorEnabled.set(errorHint.isNotBlank())
                 passwordOldError.set(errorHint)
-                downEnabled.set(isAllPasswordEnabled())
+                completeEnabled.set(isAllPasswordEnabled())
             }
             newPassword.onPropertyChanged { _, _ ->
                 if (cfmPassword.get().toString().isBlank()) {
@@ -49,14 +49,14 @@ class PasswordModifyVm : BaseVm() {
                             passwordCfmError.set(this)
                         }
                 }
-                downEnabled.set(isAllPasswordEnabled())
+                completeEnabled.set(isAllPasswordEnabled())
             }
             cfmPassword.onPropertyChanged { _, _ ->
                 val errorHint =
                     AccountUtils.checkConfirmPassword(newPassword.get().toString(), cfmPassword.get().toString())
                 passwordCfmErrorEnabled.set(errorHint.isNotBlank())
                 passwordCfmError.set(errorHint)
-                downEnabled.set(isAllPasswordEnabled())
+                completeEnabled.set(isAllPasswordEnabled())
             }
         }
     }
@@ -70,7 +70,7 @@ class PasswordModifyVm : BaseVm() {
     /**
      * 点击事件 -> 完成
      */
-    var onDownClick = View.OnClickListener {
+    var onCompleteClick = View.OnClickListener {
         modifyPasswordEvent.value = LiveDataEvent(Unit)
     }
 }

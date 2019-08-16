@@ -18,7 +18,7 @@
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="next">下一步</string>
-    <string name="down">完成</string>
+    <string name="complete">完成</string>
     <string name="delete">删除</string>
     <string name="rename">重命名</string>
     <string name="refresh">刷新</string>

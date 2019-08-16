@@ -3,23 +3,42 @@ package com.mvvm.hayate.vm.profile
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import com.mvvm.component.BaseApplication
 import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.vm.BaseVm
+import com.mvvm.hayate.ProfileManager
+import com.mvvm.hayate.R
 import com.mvvm.hayate.view.profile.PasswordModifyActivity
 
 open class ProfileDetailVm : BaseVm() {
 
+    var userId = ObservableField("")
     var nickname = ObservableField("")
+    var sex = ObservableField("")
+    var birthday = ObservableField("")
 
     val nicknameEvent = MutableLiveData<LiveDataEvent<String>>()
+    val sexEvent = MutableLiveData<LiveDataEvent<String>>()
+    val birthdayEvent = MutableLiveData<LiveDataEvent<String>>()
     val logoutEvent = MutableLiveData<LiveDataEvent<Unit>>()
 
     init {
-        setNickname()
+        userId.set(ProfileManager.userId)
+        updateNickname()
+        updateSex()
+        updateBirthday()
     }
 
-    fun setNickname() {
+    fun updateNickname() {
+        nickname.set(ProfileManager.nickname ?: "")
+    }
 
+    fun updateSex() {
+        sex.set(ProfileManager.sex ?: BaseApplication.context.getString(R.string.secret))
+    }
+
+    fun updateBirthday() {
+        birthday.set(ProfileManager.birthday ?: BaseApplication.context.getString(R.string.secret))
     }
 
     /**
@@ -34,6 +53,20 @@ open class ProfileDetailVm : BaseVm() {
      */
     var onNicknameClick = View.OnClickListener {
         nicknameEvent.value = LiveDataEvent(nickname.get().toString())
+    }
+
+    /**
+     * 点击事件 -> 性别修改
+     */
+    var onSexClick = View.OnClickListener {
+        sexEvent.value = LiveDataEvent(sex.get().toString())
+    }
+
+    /**
+     * 点击事件 -> 生日修改
+     */
+    var onBirthdayClick = View.OnClickListener {
+        birthdayEvent.value = LiveDataEvent(birthday.get().toString())
     }
 
     /**

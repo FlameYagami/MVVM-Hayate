@@ -22,14 +22,36 @@ class ProfileManager {
         }
 
         val userId get() = instance.loginResp?.userId.toString()
-
         val username get() = instance.loginResp?.username
-
         val nickname get() = instance.loginResp?.nickname
+        val sex get() = instance.loginResp?.sex
+        val birthday get() = instance.loginResp?.birthday
+        val avatarPath get() = instance.loginResp?.avatarPath
 
         fun saveNickname(nickname: String) {
             instance.loginResp?.apply {
                 this.nickname = nickname
+                saveProfile()
+            }
+        }
+
+        fun saveSex(sex: String) {
+            instance.loginResp?.apply {
+                this.sex = sex
+                saveProfile()
+            }
+        }
+
+        fun saveBirthday(birthday: String) {
+            instance.loginResp?.apply {
+                this.birthday = birthday
+                saveProfile()
+            }
+        }
+
+        fun saveAvatar(avatarPath: String) {
+            instance.loginResp?.apply {
+                this.avatarPath = avatarPath
                 saveProfile()
             }
         }

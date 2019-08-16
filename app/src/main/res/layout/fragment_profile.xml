@@ -1,196 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-                name="avatarVm"
-                type="com.mvvm.hayate.vm.main.AvatarVm"/>
-
-        <variable
-                name="vm"
-                type="com.mvvm.hayate.vm.main.ProfileVm"/>
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
-                onOffsetListener="@{vm.onOffsetListener}"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:stateListAnimator="@animator/appbar_elevation"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                tools:targetApi="lollipop">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsing_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/selector_background_common"
-                    app:collapsedTitleGravity="center"
-                    app:collapsedTitleTextAppearance="@style/StyleTitleMain"
-                    app:contentScrim="@android:color/white"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                    app:title="@string/main_profile"
-                    app:titleEnabled="@{vm.titleEnabled}">
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        app:layout_collapseMode="parallax">
-
-                    <FrameLayout
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_marginTop="48dp"
-                            android:background="@drawable/selector_background_common">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                                profileIconError="@{avatarVm.profileIconError}"
-                                profileIconPath="@{avatarVm.profileIconPath}"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:background="@drawable/shape_round_line_white"
-                                android:onClick="@{avatarVm.onProfileIconClick}"
-                                android:padding="4dp"
-                                tools:src="@drawable/ic_profile_icon"/>
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:layout_gravity="bottom|end"
-                                android:layout_margin="8dp"
-                                android:src="@drawable/ic_profile_camera"/>
-                    </FrameLayout>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                            style="@style/StyleTitleMain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/activity_vertical_margin"
-                            android:text="@{vm.nickname}"
-                            tools:text="123456789"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                            style="@style/StyleTitleSubLight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/activity_vertical_margin_half"
-                            android:text="@{vm.username}"
-                            tools:text="FlameYagami"/>
-
-                </LinearLayout>
-
-                <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        app:layout_collapseMode="pin"
-                        app:popupTheme="@style/ToolbarPopupTheme">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="end"
-                            android:background="@drawable/selector_background_common"
-                            android:onClick="@{vm.onSettingClick}"
-                            android:padding="12dp"
-                            android:src="@mipmap/ic_nav_setting"/>
-                </androidx.appcompat.widget.Toolbar>
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorBackground"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginRight="20dp"
-                        android:text="@string/profile_common"/>
-
-                <com.google.android.material.card.MaterialCardView
-                        style="@style/StyleCardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/activity_vertical_margin">
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                        <com.mvvm.component.uc.widget.SelectView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:onClick="@{vm.onProfileClick}"
-                                app:srcIcon="@drawable/ic_user_nickname"
-                                app:textTitle="@string/profile"
-                                tools:textMessage=""/>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="@string/profile_support"/>
-
-                <com.google.android.material.card.MaterialCardView
-                        style="@style/StyleCardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/activity_vertical_margin">
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                        <com.mvvm.component.uc.widget.SelectView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:onClick="@{vm.onFeedbackClick}"
-                                app:srcIcon="@drawable/ic_profile_feedback"
-                                app:textTitle="@string/profile_feedback"
-                                tools:textMessage=""/>
-
-                        <com.mvvm.component.uc.widget.SelectView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:onClick="@{vm.onVersionUpdateClick}"
-                                app:srcIcon="@drawable/ic_profile_version_check"
-                                app:textMessage="@{vm.versionName}"
-                                app:textTitle="@string/profile_version_update"
-                                tools:textMessage=""/>
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+	
+	<data>
+		
+		<variable
+				name="avatarVm"
+				type="com.mvvm.hayate.vm.profile.AvatarVm"/>
+		
+		<variable
+				name="vm"
+				type="com.mvvm.hayate.vm.main.ProfileVm"/>
+	</data>
+	
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+		
+		<com.google.android.material.appbar.AppBarLayout
+				android:id="@+id/appBarLayout"
+				onOffsetListener="@{vm.onOffsetListener}"
+				android:layout_width="match_parent"
+				android:layout_height="220dp"
+				android:clickable="true"
+				android:focusable="true"
+				android:stateListAnimator="@animator/appbar_elevation"
+				android:theme="@style/ThemeOverlay.AppCompat.Dark"
+				tools:targetApi="lollipop">
+			
+			<com.google.android.material.appbar.CollapsingToolbarLayout
+					android:id="@+id/collapsing_layout"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@drawable/selector_background_common"
+					app:collapsedTitleGravity="center"
+					app:collapsedTitleTextAppearance="@style/StyleTitleMain"
+					app:contentScrim="@android:color/white"
+					app:layout_scrollFlags="scroll|exitUntilCollapsed"
+					app:title="@string/main_profile"
+					app:titleEnabled="@{vm.titleEnabled}">
+				
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:gravity="center_horizontal"
+						android:orientation="vertical"
+						app:layout_collapseMode="parallax">
+					
+					<FrameLayout
+							android:layout_width="80dp"
+							android:layout_height="80dp"
+							android:layout_marginTop="48dp"
+							android:background="@drawable/selector_background_common">
+						
+						<androidx.appcompat.widget.AppCompatImageView
+								avatarPath="@{avatarVm.avatarPath}"
+								avatarErrorRes="@{avatarVm.avatarErrorRes}"
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:layout_gravity="center"
+								android:background="@drawable/shape_round_line_white"
+								android:onClick="@{avatarVm.onAvatarClick}"
+								android:padding="4dp"
+								tools:src="@drawable/ic_avatar"/>
+						
+						<androidx.appcompat.widget.AppCompatImageView
+								android:layout_width="14dp"
+								android:layout_height="14dp"
+								android:layout_gravity="bottom|end"
+								android:layout_margin="8dp"
+								android:src="@drawable/ic_profile_camera"/>
+					</FrameLayout>
+					
+					<androidx.appcompat.widget.AppCompatTextView
+							style="@style/StyleTitleMain"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/activity_vertical_margin"
+							android:text="@{vm.nickname}"
+							tools:text="123456789"/>
+					
+					<androidx.appcompat.widget.AppCompatTextView
+							style="@style/StyleTitleSubLight"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/activity_vertical_margin_half"
+							android:text="@{vm.username}"
+							tools:text="FlameYagami"/>
+				
+				</LinearLayout>
+				
+				<androidx.appcompat.widget.Toolbar
+						android:id="@+id/toolbar"
+						android:layout_width="match_parent"
+						android:layout_height="48dp"
+						app:layout_collapseMode="pin"
+						app:popupTheme="@style/ToolbarPopupTheme">
+					
+					<androidx.appcompat.widget.AppCompatImageView
+							android:layout_width="48dp"
+							android:layout_height="48dp"
+							android:layout_gravity="end"
+							android:background="@drawable/selector_background_common"
+							android:onClick="@{vm.onSettingClick}"
+							android:padding="12dp"
+							android:src="@mipmap/ic_nav_setting"/>
+				</androidx.appcompat.widget.Toolbar>
+			
+			</com.google.android.material.appbar.CollapsingToolbarLayout>
+		</com.google.android.material.appbar.AppBarLayout>
+		
+		<androidx.core.widget.NestedScrollView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@color/colorBackground"
+				app:layout_behavior="@string/appbar_scrolling_view_behavior">
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+				
+				<androidx.appcompat.widget.AppCompatTextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="20dp"
+						android:layout_marginTop="@dimen/activity_vertical_margin"
+						android:layout_marginRight="20dp"
+						android:text="@string/profile_common"/>
+				
+				<com.google.android.material.card.MaterialCardView
+						style="@style/StyleCardView"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_margin="@dimen/activity_vertical_margin">
+					
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="vertical">
+						
+						<com.mvvm.component.uc.widget.SelectView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:onClick="@{vm.onProfileClick}"
+								app:srcIcon="@drawable/ic_user_nickname"
+								app:textTitle="@string/profile"
+								tools:textMessage=""/>
+					
+					</LinearLayout>
+				
+				</com.google.android.material.card.MaterialCardView>
+				
+				<androidx.appcompat.widget.AppCompatTextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="20dp"
+						android:layout_marginRight="20dp"
+						android:text="@string/profile_support"/>
+				
+				<com.google.android.material.card.MaterialCardView
+						style="@style/StyleCardView"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_margin="@dimen/activity_vertical_margin">
+					
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="vertical">
+						
+						<com.mvvm.component.uc.widget.SelectView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:onClick="@{vm.onFeedbackClick}"
+								app:srcIcon="@drawable/ic_profile_feedback"
+								app:textTitle="@string/profile_feedback"
+								tools:textMessage=""/>
+						
+						<com.mvvm.component.uc.widget.SelectView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:onClick="@{vm.onVersionUpdateClick}"
+								app:srcIcon="@drawable/ic_profile_version_check"
+								app:textMessage="@{vm.versionName}"
+								app:textTitle="@string/profile_version_update"
+								tools:textMessage=""/>
+					</LinearLayout>
+				
+				</com.google.android.material.card.MaterialCardView>
+			</LinearLayout>
+		</androidx.core.widget.NestedScrollView>
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

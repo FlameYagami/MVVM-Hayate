@@ -7,9 +7,12 @@ import com.mvvm.component.ext.clearTask
 import com.mvvm.component.ext.intentFor
 import com.mvvm.component.ext.newTask
 import com.mvvm.component.utils.FileUtils
+import com.mvvm.component.utils.SpUtils
 import com.mvvm.component.view.base.BaseActivity
 import com.mvvm.hayate.PathManager
+import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
+import com.mvvm.hayate.view.login.LoginActivity
 import com.mvvm.hayate.view.main.MainActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.coroutines.GlobalScope
@@ -29,7 +32,10 @@ class LoadingActivity : BaseActivity() {
     private fun delayToActivity() {
         GlobalScope.launch {
             delay(2000)
-            startActivity(intentFor<MainActivity>().newTask().clearTask())
+            when {
+                SpUtils.getString(ProfileManager.PROFILE_INFO).isNotBlank() -> startActivity(intentFor<MainActivity>().newTask().clearTask())
+                else -> startActivity(intentFor<LoginActivity>().newTask().clearTask())
+            }
         }
     }
 

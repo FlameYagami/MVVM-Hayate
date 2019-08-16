@@ -6,7 +6,7 @@
 		
 		<variable
 				name="avatarVm"
-				type="com.mvvm.hayate.vm.main.AvatarVm"/>
+				type="com.mvvm.hayate.vm.profile.AvatarVm"/>
 		
 		<variable
 				name="vm"
@@ -35,15 +35,34 @@
 				android:layout_marginRight="@dimen/activity_horizontal_margin">
 			
 			<com.mvvm.component.uc.widget.SelectView
-					subCircleErrorSrc="@{avatarVm.profileIconError}"
-					subCirclePath="@{avatarVm.profileIconPath}"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center_vertical"
+					app:visibleArrow="false"
+					app:textTitle="@string/user_id"
+					app:textMessage="@{vm.userId}"
+					app:visibleIcon="false"
+					tools:textMessage="4985216"/>
+		</com.google.android.material.card.MaterialCardView>
+		
+		<com.google.android.material.card.MaterialCardView
+				style="@style/StyleCardView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/activity_horizontal_margin"
+				android:layout_marginTop="@dimen/activity_vertical_margin"
+				android:layout_marginRight="@dimen/activity_horizontal_margin">
+			
+			<com.mvvm.component.uc.widget.SelectView
+					subCirclePath="@{avatarVm.avatarPath}"
+					subCircleErrorSrc="@{avatarVm.avatarErrorRes}"
 					android:layout_width="match_parent"
 					android:layout_height="72dp"
 					android:gravity="center_vertical"
-					android:onClick="@{avatarVm.onProfileIconClick}"
-					app:srcIcon="@drawable/ic_user_profile_icon"
+					android:onClick="@{avatarVm.onAvatarClick}"
+					app:visibleIcon="false"
 					app:textTitle="@string/profile_icon"
-					tools:src="@drawable/ic_profile_icon"
+					tools:src="@drawable/ic_avatar"
 					tools:textMessage=""/>
 		</com.google.android.material.card.MaterialCardView>
 		
@@ -62,7 +81,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:onClick="@{vm.onNicknameClick}"
-						app:srcIcon="@drawable/ic_user_nickname"
+						app:visibleIcon="false"
 						app:textMessage="@{vm.nickname}"
 						app:textTitle="@string/nickname"
 						tools:textMessage="Flame"/>
@@ -70,8 +89,26 @@
 				<com.mvvm.component.uc.widget.SelectView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
+						android:onClick="@{vm.onSexClick}"
+						app:visibleIcon="false"
+						app:textMessage="@{vm.sex}"
+						app:textTitle="@string/sex"
+						tools:textMessage="保密"/>
+				
+				<com.mvvm.component.uc.widget.SelectView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:onClick="@{vm.onBirthdayClick}"
+						app:visibleIcon="false"
+						app:textMessage="@{vm.birthday}"
+						app:textTitle="@string/birthday"
+						tools:textMessage="保密"/>
+				
+				<com.mvvm.component.uc.widget.SelectView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
 						android:onClick="@{vm.onPasswordModifyClick}"
-						app:srcIcon="@drawable/ic_user_password"
+						app:visibleIcon="false"
 						app:textTitle="@string/password_modify"
 						tools:textMessage=""/>
 			
@@ -87,6 +124,6 @@
 				android:layout_marginTop="@dimen/activity_vertical_margin_half"
 				android:layout_marginRight="@dimen/activity_horizontal_margin_double"
 				android:onClick="@{vm.onLogout}"
-				android:text="@string/login_exit"/>
+				android:text="@string/logout"/>
 	</LinearLayout>
 </layout>
