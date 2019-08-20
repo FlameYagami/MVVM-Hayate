@@ -1,5 +1,5 @@
 package com.mvvm.hayate.model.event
 
-class ProfileIconChangedEvent
+class AvatarChangedEvent
 
 class NicknameChangedEvent

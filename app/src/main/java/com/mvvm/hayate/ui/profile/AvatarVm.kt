@@ -60,7 +60,7 @@ class AvatarVm : BaseVm() {
      * 拍照
      */
     fun takePhoto() {
-        val tempFile = File(PathManager.profileIconTempPath)
+        val tempFile = File(PathManager.avatarTempPath)
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val uriForFile = FileProvider.getUriForFile(BaseApplication.context, "${BuildConfig.APPLICATION_ID}.fileProvider", tempFile)
@@ -97,7 +97,7 @@ class AvatarVm : BaseVm() {
      * 根据手机的SDK进行不同方式的裁剪
      */
     private fun cropImageBySdk() {
-        File(PathManager.profileIconTempPath).apply {
+        File(PathManager.avatarTempPath).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 cropImage(FileProvider.getUriForFile(BaseApplication.context, "${BuildConfig.APPLICATION_ID}.fileProvider", this))// 设置输入类型
             } else {
@@ -107,7 +107,7 @@ class AvatarVm : BaseVm() {
     }
 
     private fun saveCropImage() {
-        BitmapFactory.decodeFile(PathManager.profileIconPath)?.apply {
+        BitmapFactory.decodeFile(PathManager.avatarPath)?.apply {
             try {
                 val profileIconTempFile = File("${PathManager.profileIconDir}photo${System.currentTimeMillis()}.jpg")
                 val bos = BufferedOutputStream(FileOutputStream(profileIconTempFile))
@@ -136,7 +136,7 @@ class AvatarVm : BaseVm() {
             putExtra("aspectY", 1)
             putExtra("outputX", 160)
             putExtra("outputY", 160)
-            putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(File(PathManager.profileIconPath)))// 保存到原文件
+            putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(File(PathManager.avatarPath)))// 保存到原文件
             putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString())// 返回格式
             putExtra("return-data", false)
             startActivityForResultEvent.value = LiveDataEvent(this to AvatarType.TYPE_CROP.value())

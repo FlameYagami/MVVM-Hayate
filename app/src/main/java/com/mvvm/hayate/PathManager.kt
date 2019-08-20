@@ -10,8 +10,8 @@ class PathManager {
     private val logDir: String = "$appDir/log/"
     private val iconDir: String = "$appDir/icon/"
     private val apkDir: String = "$appDir/apk/"
-    private val profileIconPath: String = "$iconDir/icon.jpg"
-    private val profileIconTempPath: String = "$iconDir/iconTemp.jpg"
+    private val avatarPath: String = "$iconDir/icon.jpg"
+    private val avatarTempPath: String = "$iconDir/iconTemp.jpg"
 
     companion object {
 
@@ -25,9 +25,9 @@ class PathManager {
 
         var profileIconDir = instance.iconDir
 
-        var profileIconPath = instance.profileIconPath
+        var avatarPath = instance.avatarPath
 
-        var profileIconTempPath = instance.profileIconTempPath
+        var avatarTempPath = instance.avatarTempPath
 
         var apkDir = instance.apkDir
     }

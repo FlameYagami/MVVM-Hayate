@@ -1,6 +1,5 @@
 package com.mvvm.hayate.ui.main
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import com.mvvm.component.ext.*
 import com.mvvm.component.uc.dialog.MaterialDialogList
@@ -8,8 +7,8 @@ import com.mvvm.component.view.BaseBindingFragment
 import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.FragmentProfileBinding
+import com.mvvm.hayate.model.event.AvatarChangedEvent
 import com.mvvm.hayate.model.event.NicknameChangedEvent
-import com.mvvm.hayate.model.event.ProfileIconChangedEvent
 import com.mvvm.hayate.ui.profile.AvatarVm
 import org.greenrobot.eventbus.Subscribe
 
@@ -66,7 +65,6 @@ class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
         }
     }
 
-    @SuppressLint("CheckResult")
     fun initUserInfo() {
 
     }
@@ -77,13 +75,13 @@ class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
     }
 
     @Subscribe
-    fun onProfileIconChangedEvent(event: ProfileIconChangedEvent) {
+    fun onAvatarChangedEvent(event: AvatarChangedEvent) {
         avatarViewModel.updateAvatar()
     }
 
     @Subscribe
     fun onNicknameChangedEvent(event: NicknameChangedEvent) {
-//        viewModel.setNickname()
+        viewModel.updateNickname()
     }
 
     override fun applyEventBus(): Boolean {

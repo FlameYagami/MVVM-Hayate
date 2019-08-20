@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.material.appbar.AppBarLayout
 import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.view.BaseVm
+import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.ui.profile.FeedbackActivity
 import com.mvvm.hayate.ui.profile.ProfileDetailActivity
 import com.mvvm.hayate.utils.SystemUtils
@@ -22,7 +23,9 @@ class ProfileVm : BaseVm() {
     val checkAppUpdateEvent = MutableLiveData<LiveDataEvent<Unit>>()
 
     init {
+        username.set(ProfileManager.username ?: "")
         versionName.set(SystemUtils.versionName)
+        updateNickname()
     }
 
     var onOffsetListener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -37,6 +40,10 @@ class ProfileVm : BaseVm() {
                 titleEnabled.set(false) // 中间状态
             }
         }
+    }
+
+    fun updateNickname() {
+        nickname.set(ProfileManager.nickname ?: "")
     }
 
     /**
