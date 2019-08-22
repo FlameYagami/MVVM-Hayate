@@ -5,10 +5,7 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -20,9 +17,11 @@ import java.io.Serializable
 /**
  * Created by FlameYagami on 2016/12/1.
  */
+
 class DialogCircularProgress : DialogFragment() {
 
-    private var onKeyListener: DialogInterface.OnKeyListener? = null
+    private var dialogCancelable = true
+    private var onDismissListener: DialogInterface.OnDismissListener? = null
     private var circularProgressDrawable: CircularProgressDrawable? = null
     private var colorResIds = arrayListOf(
         R.color.colorRed,
@@ -34,31 +33,26 @@ class DialogCircularProgress : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_FRAME, R.style.BaseDialog)
+
+        val data = arguments?.getSerializable(DialogCircularProgressData::class.java.simpleName) as DialogCircularProgressData
+        dialogCancelable = data.cancelable
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_circular_progress, container, false).apply {
-            val data =
-                arguments?.getSerializable(DialogCircularProgressData::class.java.simpleName) as DialogCircularProgressData
-            onKeyListener = data.onKeyListener
-        }
+        return inflater.inflate(com.mvvm.component.R.layout.dialog_circular_progress, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.apply {
             setCanceledOnTouchOutside(false)
-
-            onKeyListener?.apply {
-                setCancelable(false)
-                setOnKeyListener(this)
-            } ?: apply {
-                setCancelable(false)
-                setOnKeyListener(null)
+            // 拦截返回键
+            setOnKeyListener { _, keyCode, _ ->
+                keyCode == KeyEvent.KEYCODE_BACK && !dialogCancelable
             }
 
             window?.apply {
-                setWindowAnimations(R.style.bottom_dialog_animation)
+                setWindowAnimations(com.mvvm.component.R.style.bottom_dialog_animation)
                 // 解决Dialog显示后StatusBar变黑问题
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -76,6 +70,15 @@ class DialogCircularProgress : DialogFragment() {
         circularProgressDrawable?.start()
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismissListener?.onDismiss(dialog)
+    }
+
+    fun setDismissListener(onDismissListener: DialogInterface.OnDismissListener) {
+        this.onDismissListener = onDismissListener
+    }
+
     private fun getColorSchemeResources(context: Context): IntArray {
         return IntArray(colorResIds.size).apply {
             for (i in colorResIds.indices) {
@@ -86,7 +89,7 @@ class DialogCircularProgress : DialogFragment() {
 
     fun hide() {
         circularProgressDrawable?.stop()
-        if (showsDialog) {
+        if (true == dialog?.isShowing) {
             dismiss()
         }
     }
@@ -94,16 +97,16 @@ class DialogCircularProgress : DialogFragment() {
 
 fun showDialogCircularProgress(
     fragmentManager: FragmentManager,
-    onKeyListener: DialogInterface.OnKeyListener?
+    cancelable: Boolean
 ): DialogCircularProgress {
     return DialogCircularProgress().apply {
-        val data = DialogCircularProgressData(onKeyListener)
+        val data = DialogCircularProgressData(cancelable)
         arguments = Bundle().apply { putSerializable(DialogCircularProgressData::class.java.simpleName, data) }
         show(fragmentManager, DialogCircularProgress::class.java.simpleName)
     }
 }
 
 data class DialogCircularProgressData(
-    val onKeyListener: DialogInterface.OnKeyListener?
+    val cancelable: Boolean
 ) : Serializable
 

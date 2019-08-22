@@ -1,9 +1,8 @@
 package com.mvvm.component.uc.dialog
 
 import android.content.DialogInterface
-import android.view.KeyEvent
 import androidx.fragment.app.FragmentManager
-import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.Job
 
 /**
  * Created by FlameYagami on 2016/12/1.
@@ -11,32 +10,27 @@ import io.reactivex.disposables.Disposable
 
 object DialogCircularProgressUtils {
 
-    private var dialog: DialogCircularProgress? = null
+    private var dialogCircularProgress: DialogCircularProgress? = null
 
-    fun show(fragmentManager: FragmentManager, disposable: Disposable? = null) {
+    fun show(fragmentManager: FragmentManager, job: Job? = null, cancelable: Boolean = true) {
         hide()
-        val keyListener = getKeyListener(disposable)
-        dialog = showDialogCircularProgress(fragmentManager, keyListener)
+        dialogCircularProgress = showDialogCircularProgress(fragmentManager, cancelable).apply {
+            cancelDialogAndJob(this, job, cancelable)
+        }
     }
 
     fun hide() {
-        dialog?.hide()
-        dialog = null
+        dialogCircularProgress?.hide()
+        dialogCircularProgress = null
     }
 
     /**
-     * 返回键的监听
+     * 取消Dialog与相关联的Job
      */
-    private fun getKeyListener(disposable: Disposable? = null): DialogInterface.OnKeyListener? {
-        return if (null == disposable) null
-        else DialogInterface.OnKeyListener { _, keyCode, _ ->
-            takeIf {
-                keyCode == KeyEvent.KEYCODE_BACK
-            }?.apply {
-                hide()
-                disposable.dispose()
-            }
-            false
-        }
+    private fun cancelDialogAndJob(dialog: DialogCircularProgress, job: Job? = null, cancelable: Boolean) {
+        if (null == job || !cancelable) return
+        dialog.setDismissListener(DialogInterface.OnDismissListener {
+            job.cancel()
+        })
     }
 }
