@@ -24,13 +24,10 @@ fun <T> T.delayIO(lifecycleOwner: LifecycleOwner, delayTime: Long = 0, block: T.
 }
 
 suspend fun <T> T.delayCoroutine(lifecycleOwner: LifecycleOwner, delayTime: Long = 0, block: T.() -> Unit) {
-    GlobalScope.launch(Dispatchers.Default) {
-        delay(delayTime)
-    }.takeIf {
-        lifecycleOwner.lifecycle.addObserver(CoroutineLifecycle(it))
-        it.join()
-        !it.isCancelled
-    }?.apply {
+    val job = GlobalScope.async(Dispatchers.Default, CoroutineStart.LAZY) { delay(delayTime) }
+    lifecycleOwner.lifecycle.addObserver(CoroutineLifecycle(job))
+    job.await()
+    if (!job.isCancelled) {
         block()
     }
 }
@@ -58,10 +55,7 @@ fun <T> T.delayIO(delayTime: Long = 0, block: T.() -> Unit) = GlobalScope.launch
 }
 
 suspend fun <T> T.delayCoroutine(delayTime: Long = 0, block: T.() -> Unit) {
-    GlobalScope.launch(Dispatchers.Default) {
-        delay(delayTime)
-    }.apply {
-        join()
-        block()
-    }
+    val job = GlobalScope.async(Dispatchers.Default, CoroutineStart.LAZY) { delay(delayTime) }
+    job.await()
+    block()
 }

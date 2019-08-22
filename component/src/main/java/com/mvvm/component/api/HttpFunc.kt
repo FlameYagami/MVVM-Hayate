@@ -1,6 +1,5 @@
 package com.mvvm.component.api
 
-import io.reactivex.Observable
 import io.reactivex.annotations.NonNull
 import io.reactivex.functions.Function
 
@@ -11,8 +10,8 @@ import io.reactivex.functions.Function
 class HttpFunc<T> : Function<HttpResp<T>, T> {
 
     override fun apply(@NonNull httpResp: HttpResp<T>): T? {
-        if (httpResp.code != 200) {
-            throw RuntimeException(ApiThrowable(httpResp.code.toString(), httpResp.message.toString()))
+        if (httpResp.errCode != 200) {
+            throw RuntimeException(ApiThrowable(httpResp.errCode.toString(), httpResp.errMsg.toString()))
         }
         return httpResp.result
     }

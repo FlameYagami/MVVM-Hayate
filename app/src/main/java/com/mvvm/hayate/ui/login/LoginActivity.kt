@@ -1,5 +1,6 @@
 package com.mvvm.hayate.ui.login
 
+import com.mvvm.component.api.HttpCoroutine
 import com.mvvm.component.ext.*
 import com.mvvm.component.view.BaseBindingActivity
 import com.mvvm.hayate.PathManager
@@ -8,7 +9,7 @@ import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityLoginBinding
 import com.mvvm.hayate.model.login.LoginResp
 import com.mvvm.hayate.ui.main.MainActivity
-import io.reactivex.Observable
+import kotlinx.coroutines.delay
 
 class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
 
@@ -29,17 +30,23 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
 
     private fun observerEvent() {
         observerEvent(viewModel.onLoginEvent) {
-            Observable.create<LoginResp> { subscriber ->
-                // 做一个2s的延迟模拟网络请求
-                val resp = LoginResp(4985216, "394198188@qq.com", "Flame", "", PathManager.profileIconPath)
-                delayThread(2000) { subscriber.onNext(resp) }
-            }
-                .applyDialogCircleProgress(this, viewModel)
-                .applyIoMain(this)
-                .subscribe {
-                    ProfileManager.login(it)
+            HttpCoroutine(this) { delay(5000) }
+                .applyDialog(this, viewModel)
+                .onJoin({
+                    val httpResp = LoginResp(
+                        4985216,
+                        "394198188@qq.com",
+                        "Flame",
+                        "",
+                        "",
+                        "FlameYagami@gmail.com",
+                        PathManager.avatarPath
+                    )
+                    ProfileManager.login(httpResp)
                     startActivity(intentFor<MainActivity>().newTask().clearTask())
-                }
+                }, {
+
+                })
         }
     }
 }

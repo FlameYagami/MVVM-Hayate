@@ -5,7 +5,7 @@ package com.mvvm.component.api
  */
 
 class HttpResp<T> {
-    var code: Int = 0
-    var message: String? = null
+    var errCode: Int = 0
+    var errMsg: String? = null
     var result: T? = null
 }

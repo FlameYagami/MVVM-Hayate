@@ -6,7 +6,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mvvm.component.*
-import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.Job
 
 open class BaseVm : ViewModel() {
 
@@ -15,7 +15,7 @@ open class BaseVm : ViewModel() {
     val dialogToastSuccessEvent = MutableLiveData<LiveDataEvent<Boolean>>()
     val dialogToastFailureEvent = MutableLiveData<LiveDataEvent<Boolean>>()
     val dialogToastWarningEvent = MutableLiveData<LiveDataEvent<Triple<Boolean, String, Int?>>>()
-    val dialogCircularProgressEvent = MutableLiveData<LiveDataEvent<Pair<Boolean, Disposable?>>>()
+    val dialogCircularProgressEvent = MutableLiveData<LiveDataEvent<Pair<Boolean, Job?>>>()
     val broadcastEvent = MutableLiveData<LiveDataEvent<Intent>>()
 
     fun dialogToastSuccess(applyNavigation: Boolean = false) {

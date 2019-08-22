@@ -1,12 +1,12 @@
 package com.mvvm.hayate.api
 
 import com.mvvm.component.api.BaseApi
-import com.mvvm.component.api.HttpFunc
+import com.mvvm.component.api.HttpResp
 import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.model.app.AppUpdateResp
 import com.mvvm.hayate.model.login.LoginReq
 import com.mvvm.hayate.model.login.LoginResp
-import io.reactivex.Observable
+import com.mvvm.hayate.model.profile.AvatarResp
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,8 +23,8 @@ object Api : BaseApi() {
      * @param http 请求封装模型
      * @return 任务列表
      */
-    fun login(http: LoginReq): Observable<LoginResp> {
-        return service.login(http).map(HttpFunc())
+    suspend fun login(http: LoginReq): HttpResp<LoginResp> {
+        return service.login(http)
     }
 
     /**
@@ -33,8 +33,8 @@ object Api : BaseApi() {
      * @param nickname 昵称
      * @return 任务列表
      */
-    fun updateNickName(nickname: String): Observable<Any> {
-        return service.updateNickname(ProfileManager.userId, nickname).map(HttpFunc())
+    suspend fun updateNickName(nickname: String): HttpResp<Any> {
+        return service.updateNickname(ProfileManager.userId, nickname)
     }
 
     /**
@@ -42,8 +42,8 @@ object Api : BaseApi() {
      *
      * @return 任务列表
      */
-    fun checkAppUpdate(versionName: String): Observable<AppUpdateResp> {
-        return service.checkAppUpdate(versionName).map(HttpFunc())
+    suspend fun checkAppUpdate(versionName: String): HttpResp<AppUpdateResp> {
+        return service.checkAppUpdate(versionName)
     }
 
     /**
@@ -51,8 +51,8 @@ object Api : BaseApi() {
      *
      * @return 任务列表
      */
-    fun submitFeedback(description: String): Observable<Any> {
-        return service.feedback(ProfileManager.userId, description).map(HttpFunc())
+    suspend fun submitFeedback(description: String): HttpResp<Any> {
+        return service.feedback(ProfileManager.userId, description)
     }
 
     /**
@@ -61,10 +61,10 @@ object Api : BaseApi() {
      * @param file 头像文件
      * @return 任务列表
      */
-    fun updateAvatar(file: File): Observable<Any> {
+    suspend fun updateAvatar(file: File): HttpResp<AvatarResp> {
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("avatar", file.name, RequestBody.create(MediaType.parse("image/png"), file))
             .build()
-        return service.updateAvatar(body).map(HttpFunc())
+        return service.updateAvatar(body)
     }
 }
