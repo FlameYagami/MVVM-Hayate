@@ -33,8 +33,4 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             setupWithViewPager(viewPager)
         }
     }
-
-    override fun applySwipeBack(): Boolean {
-        return false
-    }
 }

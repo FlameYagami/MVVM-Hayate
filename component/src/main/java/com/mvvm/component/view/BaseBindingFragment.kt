@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by FlameYagami on 2017/5/3.
  */
 
-abstract class BaseBindingFragment<T : ViewDataBinding> : Fragment() {
+abstract class BaseBindingFragment<T : ViewDataBinding> : CoroutineFragment() {
 
     protected lateinit var viewDataBinding: T
 

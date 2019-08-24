@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.WarpIntent
 import com.mvvm.component.WarpPair
@@ -15,7 +15,7 @@ import com.mvvm.component.uc.dialog.showDialogToast
 import com.mvvm.component.view.BaseVm
 
 inline fun <reified V : ViewModel> AppCompatActivity.obtainViewModel() =
-        ViewModelProviders.of(this).get(V::class.java)
+    ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(V::class.java)
 
 fun <E> AppCompatActivity.observerEvent(liveData: LiveData<LiveDataEvent<E>>, block: (E) -> Unit) {
     liveData.observe(this, Observer { event ->

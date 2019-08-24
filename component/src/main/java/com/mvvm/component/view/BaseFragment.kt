@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by FlameYagami on 2017/5/3.
  */
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : CoroutineFragment() {
 
     // 是否初始化控件
     protected var isInitView: Boolean = false

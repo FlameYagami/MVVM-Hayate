@@ -57,10 +57,6 @@ class LoadingActivity : BaseActivity() {
         }
     }
 
-    override fun applySwipeBack(): Boolean {
-        return false
-    }
-
     override fun applyStatusBar(): Boolean {
         return false
     }

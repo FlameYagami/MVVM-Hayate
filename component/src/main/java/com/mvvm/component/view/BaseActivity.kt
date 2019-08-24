@@ -4,11 +4,9 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.mvvm.component.AppManager
 import com.mvvm.component.utils.StatusBarUtils
-import me.imid.swipebacklayout.lib.SwipeBackLayout
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity
 import org.greenrobot.eventbus.EventBus
 
-abstract class BaseActivity : SwipeBackActivity() {
+abstract class BaseActivity : CoroutineActivity() {
 
     abstract val layoutId: Int
 
@@ -23,11 +21,6 @@ abstract class BaseActivity : SwipeBackActivity() {
         if (applyStatusBar()) StatusBarUtils.setTranslucent(this, 16)
         // 设置EventBus
         if (applyEventBus()) EventBus.getDefault().register(this)
-        // 设置SwipeBackActivity
-        if (applySwipeBack()) {
-            setSwipeBackEnable(true)
-            swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT)
-        } else setSwipeBackEnable(false)
         initViewAndData()
         AppManager.addActivity(this)
     }
@@ -41,10 +34,6 @@ abstract class BaseActivity : SwipeBackActivity() {
 
     open fun applyEventBus(): Boolean {
         return false
-    }
-
-    open fun applySwipeBack(): Boolean {
-        return true
     }
 
     open fun applyStatusBar(): Boolean {
