@@ -1,10 +1,7 @@
 package com.mvvm.hayate.ui.main
 
 import android.content.Intent
-import com.mvvm.component.ext.dialogCircularProgress
-import com.mvvm.component.ext.dialogToast
-import com.mvvm.component.ext.observerEvent
-import com.mvvm.component.ext.startActivity
+import com.mvvm.component.ext.*
 import com.mvvm.component.uc.dialog.MaterialDialogList
 import com.mvvm.component.view.BaseBindingFragment
 import com.mvvm.hayate.ProfileManager
@@ -14,12 +11,11 @@ import com.mvvm.hayate.model.event.AvatarChangedEvent
 import com.mvvm.hayate.model.event.NicknameChangedEvent
 import com.mvvm.hayate.ui.profile.AvatarVm
 import org.greenrobot.eventbus.Subscribe
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
 
-    private val viewModel by viewModel<ProfileVm>()
-    private val avatarViewModel by viewModel<AvatarVm>()
+    private val viewModel by obtainViewModel<ProfileVm>()
+    private val avatarViewModel by obtainViewModel<AvatarVm>()
 
     override val layoutId: Int
         get() = R.layout.fragment_profile

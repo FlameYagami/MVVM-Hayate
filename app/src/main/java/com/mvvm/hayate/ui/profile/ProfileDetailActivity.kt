@@ -11,12 +11,11 @@ import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityProfileDetailBinding
 import com.mvvm.hayate.ui.login.LoginActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileDetailActivity : BaseBindingActivity<ActivityProfileDetailBinding>() {
 
-    private val viewModel by viewModel<ProfileDetailVm>()
-    private val avatarViewModel by viewModel<AvatarVm>()
+    private val viewModel by obtainViewModel<ProfileDetailVm>()
+    private val avatarViewModel by obtainViewModel<AvatarVm>()
 
     override val layoutId: Int
         get() = R.layout.activity_profile_detail

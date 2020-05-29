@@ -3,6 +3,7 @@ package com.mvvm.component.ext
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.WarpIntent
 import com.mvvm.component.WarpPair
@@ -11,6 +12,9 @@ import com.mvvm.component.uc.dialog.DialogCircularProgressUtils
 import com.mvvm.component.uc.dialog.ToastType
 import com.mvvm.component.uc.dialog.showDialogToast
 import com.mvvm.component.view.BaseVm
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+inline fun <reified V : ViewModel> AppCompatActivity.obtainViewModel() = viewModel<V>()
 
 fun <E> AppCompatActivity.observerEvent(liveData: LiveData<LiveDataEvent<E>>, block: (E) -> Unit) {
     liveData.observe(this, Observer { event ->

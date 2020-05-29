@@ -56,6 +56,7 @@ class DialogCircularProgress : DialogFragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                     statusBarColor = Color.TRANSPARENT
+                    navigationBarColor = Color.TRANSPARENT
                 }
             }
         }

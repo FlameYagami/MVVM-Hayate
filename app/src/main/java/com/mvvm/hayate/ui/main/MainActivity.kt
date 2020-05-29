@@ -1,16 +1,16 @@
 package com.mvvm.hayate.ui.main
 
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.mvvm.component.ext.obtainViewModel
 import com.mvvm.component.view.BaseBindingActivity
 import com.mvvm.component.view.BaseFragmentAdapter
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
-    private val viewModel by viewModel<MainVm>()
+    private val viewModel by obtainViewModel<MainVm>()
 
     override val layoutId: Int
         get() = R.layout.activity_main
