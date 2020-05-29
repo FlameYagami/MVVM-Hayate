@@ -2,12 +2,17 @@ package com.mvvm.component.view
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mvvm.component.*
+import com.mvvm.component.api.applyThrowableTransform
+import com.mvvm.component.ext.DELAY_TIME_2S
+import com.mvvm.component.utils.launchMainDelay
+import com.orhanobut.logger.Logger
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 
 open class BaseVm : ViewModel() {
 
@@ -34,6 +39,10 @@ open class BaseVm : ViewModel() {
         dialogToastWarningEvent.value = LiveDataEvent(Triple(applyNavigation, strMessage, resMessage))
     }
 
+    fun dialogCircularProgress(showDialog: Boolean, job: Job? = null) {
+        dialogCircularProgressEvent.value = LiveDataEvent(showDialog to job)
+    }
+
     inline fun <reified T : Activity> startActivity(vararg params: Pair<String, Any?>) {
         warpPairEvent.value = LiveDataEvent(warpStandBy<T>(*params))
     }
@@ -46,52 +55,70 @@ open class BaseVm : ViewModel() {
         broadcastEvent.value = LiveDataEvent(intent)
     }
 
+    open fun startViewModel() {
+
+    }
+
     open var onNavigationClick = {
         AppManager.finishTopActivity()
     }
 
-    suspend fun <T> applyDialog(
-        job: suspend CoroutineScope.() -> T,
-        success: ((T) -> Unit)? = null,
-        failure: ((Throwable) -> Unit)? = null,
-        finally: (() -> Unit)? = null
-    ) {
-        var isFinish = false
-        applyApiDialog(job, success, failure, finally, {
-            delay(500)
-            if (isFinish) return@applyApiDialog
-            withContext(Dispatchers.Main) { dialogCircularProgressEvent.value = LiveDataEvent(true to it) }
-        }, {
-            isFinish = true
-            withContext(Dispatchers.Main) { dialogCircularProgressEvent.value = LiveDataEvent(false to null) }
-        })
+    suspend fun finishTopActivityDelay() {
+        launchMainDelay(DELAY_TIME_2S) { AppManager.finishTopActivity() }
     }
 
-    private suspend fun <T> applyApiDialog(
-        job: suspend CoroutineScope.() -> T,
-        success: ((T) -> Unit)?,
-        failure: ((Throwable) -> Unit)?,
-        finally: (() -> Unit)?,
-        showDialog: (suspend (Job) -> Unit)?,
-        hideDialog: (suspend () -> Unit)?
-    ) {
-        try {
-            coroutineScope {
-                val deferred = async(Dispatchers.IO, CoroutineStart.LAZY) { job() }
-                showDialog?.invoke(deferred)
-                val result = deferred.await()
-                hideDialog?.invoke()
-                withContext(Dispatchers.Main) { success?.invoke(result) }
+    fun launchUI(block: suspend CoroutineScope.() -> Unit) {
+        viewModelScope.launch { block() }
+    }
+
+    fun <T> launchFlowBaseDialog(
+        delayDialog: Long = 500,
+        block: suspend CoroutineScope.() -> T
+    ): Flow<T> {
+        var isFinish = false
+        val deferred = CoroutineScope(Job()).async(Dispatchers.IO, CoroutineStart.LAZY) { block() }
+        return flow {
+            emit(deferred.await())
+        }.onStart {
+            delay(delayDialog)
+            if (isFinish) return@onStart
+            withContext(Dispatchers.Main) { dialogCircularProgress(true, deferred) }
+        }.onCompletion {
+            isFinish = true
+            withContext(Dispatchers.Main) { dialogCircularProgress(false, null) }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun <T> launchFlowDialog(
+        applyNavigation: Boolean = false,
+        delayDialog: Long = 500,
+        block: suspend CoroutineScope.() -> T
+    ): Flow<T> {
+        var isFinish = false
+        val deferred = CoroutineScope(Job()).async(Dispatchers.IO, CoroutineStart.LAZY) { block() }
+        return flow {
+            emit(deferred.await())
+        }.onStart {
+            delay(delayDialog)
+            if (isFinish) return@onStart
+            withContext(Dispatchers.Main) { dialogCircularProgress(true, deferred) }
+        }.onCompletion {
+            isFinish = true
+            withContext(Dispatchers.Main) { dialogCircularProgress(false, null) }
+        }.catch { throwable ->
+            if (throwable is CancellationException) {
+                Logger.w("Job is cancelled")
+                return@catch
             }
-        } catch (e: Exception) {
-            if (e is CancellationException) {
-                Log.w("TAG", "Job is cancelled")
-            } else {
-                hideDialog?.invoke()
-                withContext(Dispatchers.Main) { failure?.invoke(Throwable(e)) }
-            }
-        } finally {
-            withContext(Dispatchers.Main) { finally?.invoke() }
-        }
+            withContext(Dispatchers.Main) { dialogToastWarning(applyNavigation = applyNavigation, strMessage = applyThrowableTransform(throwable)) }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun <T> launchFlow(
+        block: suspend () -> T
+    ): Flow<T> {
+        return flow {
+            emit(block())
+        }.flowOn(Dispatchers.IO)
     }
 }
