@@ -1,7 +1,10 @@
 package com.mvvm.hayate.ui.main
 
 import android.content.Intent
-import com.mvvm.component.ext.*
+import com.mvvm.component.ext.dialogCircularProgress
+import com.mvvm.component.ext.dialogToast
+import com.mvvm.component.ext.observerEvent
+import com.mvvm.component.ext.startActivity
 import com.mvvm.component.uc.dialog.MaterialDialogList
 import com.mvvm.component.view.BaseBindingFragment
 import com.mvvm.hayate.ProfileManager
@@ -11,31 +14,29 @@ import com.mvvm.hayate.model.event.AvatarChangedEvent
 import com.mvvm.hayate.model.event.NicknameChangedEvent
 import com.mvvm.hayate.ui.profile.AvatarVm
 import org.greenrobot.eventbus.Subscribe
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
 
-    lateinit var viewModel: ProfileVm
-    lateinit var avatarViewModel: AvatarVm
+    private val viewModel by viewModel<ProfileVm>()
+    private val avatarViewModel by viewModel<AvatarVm>()
 
     override val layoutId: Int
         get() = R.layout.fragment_profile
 
     override fun initView(binding: FragmentProfileBinding) {
-        binding.avatarVm = obtainViewModel<AvatarVm>().apply {
-            avatarViewModel = this
+        binding.avatarVm = avatarViewModel.apply {
             dialogToast(this)
             dialogCircularProgress(this)
         }
-        binding.vm = obtainViewModel<ProfileVm>().apply {
-            viewModel = this
+        binding.vm = viewModel.apply {
             dialogToast(this)
             dialogCircularProgress(this)
             startActivity(this)
         }
-        observerEvent()
     }
 
-    private fun observerEvent() {
+    override fun observerViewModelEvent() {
         observerEvent(avatarViewModel.selectAvatarEvent) {
             MaterialDialogList(context!!).show {
                 title(R.string.profile_image_type)
@@ -57,15 +58,7 @@ class ProfileFragment : BaseBindingFragment<FragmentProfileBinding>() {
         }
     }
 
-    override fun initData(isViewVisible: Boolean) {
-        if (isViewVisible && !isInitData) {
-            isInitData = true
-            // 延迟刷新
-            initUserInfo()
-        }
-    }
-
-    fun initUserInfo() {
+    override fun initData() {
 
     }
 

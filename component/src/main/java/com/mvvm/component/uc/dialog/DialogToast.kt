@@ -68,7 +68,7 @@ class DialogToast : DialogFragment() {
     }
 
     fun hide() {
-        if (showsDialog) {
+        if (true == dialog?.isShowing) {
             dismiss()
         }
     }

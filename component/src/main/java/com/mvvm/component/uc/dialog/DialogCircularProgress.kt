@@ -39,7 +39,7 @@ class DialogCircularProgress : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(com.mvvm.component.R.layout.dialog_circular_progress, container, false)
+        return inflater.inflate(R.layout.dialog_circular_progress, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +52,6 @@ class DialogCircularProgress : DialogFragment() {
             }
 
             window?.apply {
-                setWindowAnimations(com.mvvm.component.R.style.bottom_dialog_animation)
                 // 解决Dialog显示后StatusBar变黑问题
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)

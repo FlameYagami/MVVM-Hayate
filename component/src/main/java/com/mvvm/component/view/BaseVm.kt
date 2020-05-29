@@ -2,11 +2,12 @@ package com.mvvm.component.view
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mvvm.component.*
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 
 open class BaseVm : ViewModel() {
 
@@ -47,5 +48,50 @@ open class BaseVm : ViewModel() {
 
     open var onNavigationClick = {
         AppManager.finishTopActivity()
+    }
+
+    suspend fun <T> applyDialog(
+        job: suspend CoroutineScope.() -> T,
+        success: ((T) -> Unit)? = null,
+        failure: ((Throwable) -> Unit)? = null,
+        finally: (() -> Unit)? = null
+    ) {
+        var isFinish = false
+        applyApiDialog(job, success, failure, finally, {
+            delay(500)
+            if (isFinish) return@applyApiDialog
+            withContext(Dispatchers.Main) { dialogCircularProgressEvent.value = LiveDataEvent(true to it) }
+        }, {
+            isFinish = true
+            withContext(Dispatchers.Main) { dialogCircularProgressEvent.value = LiveDataEvent(false to null) }
+        })
+    }
+
+    private suspend fun <T> applyApiDialog(
+        job: suspend CoroutineScope.() -> T,
+        success: ((T) -> Unit)?,
+        failure: ((Throwable) -> Unit)?,
+        finally: (() -> Unit)?,
+        showDialog: (suspend (Job) -> Unit)?,
+        hideDialog: (suspend () -> Unit)?
+    ) {
+        try {
+            coroutineScope {
+                val deferred = async(Dispatchers.IO, CoroutineStart.LAZY) { job() }
+                showDialog?.invoke(deferred)
+                val result = deferred.await()
+                hideDialog?.invoke()
+                withContext(Dispatchers.Main) { success?.invoke(result) }
+            }
+        } catch (e: Exception) {
+            if (e is CancellationException) {
+                Log.w("TAG", "Job is cancelled")
+            } else {
+                hideDialog?.invoke()
+                withContext(Dispatchers.Main) { failure?.invoke(Throwable(e)) }
+            }
+        } finally {
+            withContext(Dispatchers.Main) { finally?.invoke() }
+        }
     }
 }

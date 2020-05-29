@@ -11,32 +11,30 @@ import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityProfileDetailBinding
 import com.mvvm.hayate.ui.login.LoginActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileDetailActivity : BaseBindingActivity<ActivityProfileDetailBinding>() {
 
-    lateinit var viewModel: ProfileDetailVm
-    lateinit var avatarViewModel: AvatarVm
+    private val viewModel by viewModel<ProfileDetailVm>()
+    private val avatarViewModel by viewModel<AvatarVm>()
 
     override val layoutId: Int
         get() = R.layout.activity_profile_detail
 
     override fun initViewAndData(binding: ActivityProfileDetailBinding) {
-        binding.avatarVm = obtainViewModel<AvatarVm>().apply {
-            avatarViewModel = this
+        binding.avatarVm = avatarViewModel.apply {
             dialogToast(this)
             dialogCircularProgress(this)
             startActivity(this)
         }
-        binding.vm = obtainViewModel<ProfileDetailVm>().apply {
-            viewModel = this
+        binding.vm = viewModel.apply {
             dialogToast(this)
             dialogCircularProgress(this)
             startActivity(this)
         }
-        observerEvent()
     }
 
-    private fun observerEvent() {
+    override fun observerViewModelEvent() {
         observerEvent(avatarViewModel.selectAvatarEvent) {
             MaterialDialogList(this).show {
                 title(R.string.profile_image_type)
@@ -57,7 +55,7 @@ class ProfileDetailActivity : BaseBindingActivity<ActivityProfileDetailBinding>(
             MaterialDialogEdit(this).show {
                 title(R.string.nickname)
                 message(it)
-                positiveButton { _ , message ->
+                positiveButton { _, message ->
                     ProfileManager.saveNickname(message)
                     viewModel.updateNickname()
                 }

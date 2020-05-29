@@ -3,8 +3,10 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.mvvm.hayate">
 	
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 9.0 前台权限 -->
+	
 	<application
-			android:name=".MyApplication"
+		android:name=".App"
 			android:allowBackup="true"
 			android:icon="@mipmap/ic_launcher"
 			android:networkSecurityConfig="@xml/network_security_config"

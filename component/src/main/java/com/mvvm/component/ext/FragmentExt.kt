@@ -3,8 +3,6 @@ package com.mvvm.component.ext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.WarpIntent
 import com.mvvm.component.WarpPair
@@ -13,9 +11,6 @@ import com.mvvm.component.uc.dialog.DialogCircularProgressUtils
 import com.mvvm.component.uc.dialog.ToastType
 import com.mvvm.component.uc.dialog.showDialogToast
 import com.mvvm.component.view.BaseVm
-
-inline fun <reified V : ViewModel> Fragment.obtainViewModel() =
-    ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(V::class.java)
 
 fun <E> Fragment.observerEvent(liveData: LiveData<LiveDataEvent<E>>, block: (E) -> Unit) {
     liveData.observe(this, Observer { event ->
@@ -60,26 +55,26 @@ fun Fragment.dialogToast(baseVm: BaseVm) {
 
 fun Fragment.dialogToastSuccess(dialogToastEvent: LiveData<LiveDataEvent<Boolean>>) {
     observerEvent(dialogToastEvent) {
-        fragmentManager?.apply { showDialogToast(this, ToastType.SUCCESS, it) }
+        childFragmentManager.apply { showDialogToast(this, ToastType.SUCCESS, it) }
     }
 }
 
 fun Fragment.dialogToastFailure(dialogToastEvent: LiveData<LiveDataEvent<Boolean>>) {
     observerEvent(dialogToastEvent) {
-        fragmentManager?.apply { showDialogToast(this, ToastType.FAILURE, it) }
+        childFragmentManager.apply { showDialogToast(this, ToastType.FAILURE, it) }
     }
 }
 
 fun Fragment.dialogToastWarning(dialogToastEvent: LiveData<LiveDataEvent<Triple<Boolean, String, Int?>>>) {
     observerEvent(dialogToastEvent) {
-        fragmentManager?.apply { showDialogToast(this, ToastType.WARNING, it.first, it.second, it.third) }
+        childFragmentManager.apply { showDialogToast(this, ToastType.WARNING, it.first, it.second, it.third) }
     }
 }
 
 fun Fragment.dialogCircularProgress(baseVm: BaseVm) {
     observerEvent(baseVm.dialogCircularProgressEvent) {
         if (it.first) {
-            DialogCircularProgressUtils.show(fragmentManager!!, it.second)
+            DialogCircularProgressUtils.show(childFragmentManager, it.second)
         } else {
             DialogCircularProgressUtils.hide()
         }

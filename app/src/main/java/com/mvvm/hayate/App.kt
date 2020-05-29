@@ -4,8 +4,9 @@ import com.mvvm.component.BaseApplication
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
+import org.koin.core.context.startKoin
 
-class MyApplication : BaseApplication() {
+class App : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -17,5 +18,11 @@ class MyApplication : BaseApplication() {
             .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
             .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
+
+        // Koin
+        startKoin {
+            // your modules
+            modules(appModule)
+        }
     }
 }

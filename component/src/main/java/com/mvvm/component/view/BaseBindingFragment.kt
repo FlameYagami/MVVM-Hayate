@@ -14,22 +14,18 @@ import org.greenrobot.eventbus.EventBus
 
 abstract class BaseBindingFragment<T : ViewDataBinding> : CoroutineFragment() {
 
-    protected lateinit var viewDataBinding: T
-
-    // 是否初始化控件
-    protected var isInitView: Boolean = false
+    private lateinit var viewDataBinding: T
 
     // 是否初始化数据
-    protected var isInitData: Boolean = false
-
-    //当前Fragment是否处于可见状态标志，防止因ViewPager的缓存机制而导致回调函数的触发
-    private var isViewVisible: Boolean = false
+    private var isFirstLoad = false
 
     abstract val layoutId: Int
 
     abstract fun initView(binding: T)
 
-    abstract fun initData(isViewVisible: Boolean)
+    abstract fun initData()
+
+    abstract fun observerViewModelEvent()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (applyEventBus()) EventBus.getDefault().register(this)
@@ -42,29 +38,15 @@ abstract class BaseBindingFragment<T : ViewDataBinding> : CoroutineFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(viewDataBinding)
-        isInitView = true
-        // 视图：可见 没有加载过数据
-        if (isViewVisible) {
-            initData(true)
-        }
+        observerViewModelEvent()
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            isViewVisible = true
+    override fun onResume() {
+        super.onResume()
+        if (isFirstLoad) {
+            initData()
+            isFirstLoad = false
         }
-        if (!isInitView) {
-            return
-        }
-        // 视图：不可见->可见 没有加载过数据
-        if (isViewVisible) {
-            initData(true)
-            return
-        }
-        // 视图：可见—>不可见 已经加载过数据
-        initData(false)
-        isViewVisible = false
     }
 
     open fun applyEventBus(): Boolean {
@@ -73,7 +55,7 @@ abstract class BaseBindingFragment<T : ViewDataBinding> : CoroutineFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        isInitView = false
+        isFirstLoad = false
         if (applyEventBus()) EventBus.getDefault().unregister(this)
     }
 }

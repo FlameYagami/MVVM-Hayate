@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter
  */
 
 class BaseFragmentAdapter(manager: FragmentManager, private val classList: List<Class<*>>) :
-    FragmentPagerAdapter(manager) {
+    FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private var fragments: Array<Fragment?> = arrayOfNulls(classList.size)
 

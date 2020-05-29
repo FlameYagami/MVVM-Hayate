@@ -1,15 +1,16 @@
 package com.mvvm.hayate.ui.main
 
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.mvvm.component.ext.obtainViewModel
 import com.mvvm.component.view.BaseBindingActivity
 import com.mvvm.component.view.BaseFragmentAdapter
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
+
+    private val viewModel by viewModel<MainVm>()
 
     override val layoutId: Int
         get() = R.layout.activity_main
@@ -22,7 +23,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     )
 
     override fun initViewAndData(binding: ActivityMainBinding) {
-        binding.vm = obtainViewModel<MainVm>().apply {
+        binding.vm = viewModel.apply {
             adapter = BaseFragmentAdapter(supportFragmentManager, tabFragmentClass.toList())
         }
         with(bottomNavigation) {
@@ -32,5 +33,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             setTextSize(12F)
             setupWithViewPager(viewPager)
         }
+    }
+
+    override fun observerViewModelEvent() {
+
     }
 }
