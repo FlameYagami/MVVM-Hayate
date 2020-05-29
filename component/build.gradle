@@ -66,13 +66,8 @@ dependencies {
     api "org.koin:koin-androidx-fragment:$koinVersion"
     api "org.koin:koin-androidx-ext:$koinVersion"
 
-    // Rx
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-
     // Retrofit
     api "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    api "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     // Google
     api 'com.google.code.gson:gson:2.8.6'

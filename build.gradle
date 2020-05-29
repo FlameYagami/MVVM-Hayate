@@ -20,18 +20,11 @@ buildscript {
         // Koin
         koinVersion = '2.1.0-alpha-8'
 
-        // Rx
-        rxKotlinVersion = '2.3.0'
-        rxAndroidVersion = '2.1.1'
-        rxLifecycleVersion = "3.0.0"
-
         // Retrofit
         retrofitVersion = '2.7.1'
 
         // MaterialDialogs
         materialDialogVersion = "3.1.1"
-
-        retrofitVersion = '2.6.1'
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }

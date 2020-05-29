@@ -1,8 +1,8 @@
 package com.mvvm.hayate.ui.prepose
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.os.Build
+import com.afollestad.assent.Permission
+import com.afollestad.assent.askForPermissions
 import com.mvvm.component.ext.clearTask
 import com.mvvm.component.ext.intentFor
 import com.mvvm.component.ext.newTask
@@ -14,7 +14,6 @@ import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.mvvm.hayate.ui.login.LoginActivity
 import com.mvvm.hayate.ui.main.MainActivity
-import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -39,14 +38,11 @@ class LoadingActivity : BaseActivity() {
         }
     }
 
-    @SuppressLint("CheckResult")
     private fun checkPermission() = runBlocking {
         if (Build.VERSION.SDK_INT >= 23) {
-            RxPermissions(this@LoadingActivity).request(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ).subscribe { granted ->
-                if (granted) {
+            val permissions = arrayOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
+            askForPermissions(*permissions) { result ->
+                if (result.isAllGranted(*permissions)) {
                     FileUtils.createDirectory(PathManager.appDir)
                 }
                 delayToActivity()
