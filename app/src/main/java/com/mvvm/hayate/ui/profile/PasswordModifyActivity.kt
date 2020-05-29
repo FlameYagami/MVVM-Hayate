@@ -23,6 +23,7 @@ class PasswordModifyActivity : BaseBindingActivity<ActivityPasswrodModifyBinding
     }
 
     override fun observerViewModelEvent() {
+        super.observerViewModelEvent()
         observerEvent(viewModel.modifyPasswordEvent) {
 
         }

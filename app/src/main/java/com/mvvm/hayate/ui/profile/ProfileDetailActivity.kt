@@ -34,6 +34,7 @@ class ProfileDetailActivity : BaseBindingActivity<ActivityProfileDetailBinding>(
     }
 
     override fun observerViewModelEvent() {
+        super.observerViewModelEvent()
         observerEvent(avatarViewModel.selectAvatarEvent) {
             MaterialDialogList(this).show {
                 title(R.string.profile_image_type)

@@ -22,8 +22,4 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             startActivity(this)
         }
     }
-
-    override fun observerViewModelEvent() {
-
-    }
 }

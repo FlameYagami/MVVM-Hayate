@@ -14,8 +14,6 @@ abstract class BaseBindingActivity<T : ViewDataBinding> : CoroutineActivity() {
 
     abstract fun initViewAndData(binding: T)
 
-    abstract fun observerViewModelEvent()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 强制竖屏
@@ -43,5 +41,9 @@ abstract class BaseBindingActivity<T : ViewDataBinding> : CoroutineActivity() {
 
     open fun applyStatusBar(): Boolean {
         return true
+    }
+
+    open fun observerViewModelEvent() {
+
     }
 }

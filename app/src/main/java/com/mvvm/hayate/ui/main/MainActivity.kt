@@ -34,8 +34,4 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             setupWithViewPager(viewPager)
         }
     }
-
-    override fun observerViewModelEvent() {
-
-    }
 }

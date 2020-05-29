@@ -24,6 +24,7 @@ class FeedbackActivity : BaseBindingActivity<ActivityFeedbackBinding>() {
     }
 
     override fun observerViewModelEvent() {
+        super.observerViewModelEvent()
         observerEvent(viewModel.submitFeedbackEvent) {
 
         }
