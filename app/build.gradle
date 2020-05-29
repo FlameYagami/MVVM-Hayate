@@ -51,6 +51,10 @@ android {
         }
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     // 优化gradle.properties中transformClassDexBuilderForDebug的时间
     dexOptions {
         preDexLibraries true
