@@ -7,9 +7,9 @@ import com.mvvm.component.uc.dialog.MaterialDialogEdit
 import com.mvvm.component.uc.dialog.MaterialDialogList
 import com.mvvm.component.uc.dialog.MaterialDialogText
 import com.mvvm.component.view.BaseBindingActivity
-import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityProfileDetailBinding
+import com.mvvm.hayate.manager.ProfileManager
 import com.mvvm.hayate.ui.login.LoginActivity
 
 class ProfileDetailActivity : BaseBindingActivity<ActivityProfileDetailBinding>() {

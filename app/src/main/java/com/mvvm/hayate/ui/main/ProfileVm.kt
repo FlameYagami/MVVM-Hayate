@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.material.appbar.AppBarLayout
 import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.view.BaseVm
-import com.mvvm.hayate.ProfileManager
+import com.mvvm.hayate.manager.ProfileManager
 import com.mvvm.hayate.ui.profile.FeedbackActivity
 import com.mvvm.hayate.ui.profile.ProfileDetailActivity
 import com.mvvm.hayate.utils.SystemUtils

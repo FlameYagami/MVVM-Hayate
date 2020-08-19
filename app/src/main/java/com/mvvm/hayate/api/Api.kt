@@ -2,7 +2,7 @@ package com.mvvm.hayate.api
 
 import com.mvvm.component.api.BaseApi
 import com.mvvm.component.api.HttpResp
-import com.mvvm.hayate.ProfileManager
+import com.mvvm.hayate.manager.ProfileManager
 import com.mvvm.hayate.model.app.AppUpdateResp
 import com.mvvm.hayate.model.login.LoginReq
 import com.mvvm.hayate.model.login.LoginResp

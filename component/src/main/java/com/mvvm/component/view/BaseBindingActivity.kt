@@ -4,7 +4,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.mvvm.component.AppManager
+import com.mvvm.component.manager.AppManager
 import com.mvvm.component.utils.StatusBarUtils
 import org.greenrobot.eventbus.EventBus
 

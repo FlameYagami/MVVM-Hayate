@@ -16,9 +16,9 @@ import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.utils.FileUtils
 import com.mvvm.component.view.BaseVm
 import com.mvvm.hayate.BuildConfig
-import com.mvvm.hayate.PathManager
-import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
+import com.mvvm.hayate.manager.PathManager
+import com.mvvm.hayate.manager.ProfileManager
 import com.orhanobut.logger.Logger
 import java.io.BufferedOutputStream
 import java.io.File

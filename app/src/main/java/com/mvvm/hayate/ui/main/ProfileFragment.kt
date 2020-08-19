@@ -4,9 +4,9 @@ import android.content.Intent
 import com.mvvm.component.ext.*
 import com.mvvm.component.uc.dialog.MaterialDialogList
 import com.mvvm.component.view.BaseBindingFragment
-import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.FragmentProfileBinding
+import com.mvvm.hayate.manager.ProfileManager
 import com.mvvm.hayate.model.event.AvatarChangedEvent
 import com.mvvm.hayate.model.event.NicknameChangedEvent
 import com.mvvm.hayate.ui.profile.AvatarVm

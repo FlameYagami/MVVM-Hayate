@@ -1,4 +1,4 @@
-package com.mvvm.hayate
+package com.mvvm.hayate.manager
 
 import com.mvvm.component.BaseApplication.Companion.context
 

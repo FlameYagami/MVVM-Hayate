@@ -1,4 +1,4 @@
-package com.mvvm.component
+package com.mvvm.component.manager
 
 import android.app.Activity
 import java.lang.ref.WeakReference

@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.mvvm.component.BaseApplication
 import com.mvvm.component.LiveDataEvent
 import com.mvvm.component.view.BaseVm
-import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
+import com.mvvm.hayate.manager.ProfileManager
 
 open class ProfileDetailVm : BaseVm() {
 

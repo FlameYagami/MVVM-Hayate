@@ -7,8 +7,8 @@ import androidx.databinding.ObservableInt
 import com.mvvm.component.ext.onPropertyChanged
 import com.mvvm.component.utils.SpUtils
 import com.mvvm.component.view.BaseVm
-import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
+import com.mvvm.hayate.manager.ProfileManager
 import com.mvvm.hayate.model.login.LoginReq
 import com.mvvm.hayate.model.repository.LoginRepository
 

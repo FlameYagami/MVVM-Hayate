@@ -2,7 +2,7 @@ package com.mvvm.component.view
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import com.mvvm.component.AppManager
+import com.mvvm.component.manager.AppManager
 import com.mvvm.component.utils.StatusBarUtils
 import org.greenrobot.eventbus.EventBus
 

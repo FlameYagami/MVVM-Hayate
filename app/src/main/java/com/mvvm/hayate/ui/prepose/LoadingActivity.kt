@@ -9,9 +9,9 @@ import com.mvvm.component.ext.newTask
 import com.mvvm.component.utils.FileUtils
 import com.mvvm.component.utils.SpUtils
 import com.mvvm.component.view.BaseActivity
-import com.mvvm.hayate.PathManager
-import com.mvvm.hayate.ProfileManager
 import com.mvvm.hayate.R
+import com.mvvm.hayate.manager.PathManager
+import com.mvvm.hayate.manager.ProfileManager
 import com.mvvm.hayate.ui.login.LoginActivity
 import com.mvvm.hayate.ui.main.MainActivity
 import kotlinx.coroutines.GlobalScope
