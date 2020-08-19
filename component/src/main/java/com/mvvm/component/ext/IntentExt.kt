@@ -57,58 +57,58 @@ inline fun <reified T : Any> Fragment.intentFor(vararg params: Pair<String, Any?
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.clearTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) }
+fun Intent.clearTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_CLEAR_TOP] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.clearTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
+fun Intent.clearTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.excludeFromRecents(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) }
+fun Intent.excludeFromRecents(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_MULTIPLE_TASK] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.multipleTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK) }
+fun Intent.multipleTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_NEW_TASK] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.newTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+fun Intent.newTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_NO_ANIMATION] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.noAnimation(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION) }
+fun Intent.noAnimation(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_NO_HISTORY] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.noHistory(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) }
+fun Intent.noHistory(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_SINGLE_TOP] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.singleTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) }
+fun Intent.singleTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) }
 
-inline fun Fragment.browse(url: String, newTask: Boolean = false) = activity!!.browse(url, newTask)
+fun Fragment.browse(url: String, newTask: Boolean = false) = activity!!.browse(url, newTask)
 
 fun Context.browse(url: String, newTask: Boolean = false): Boolean {
     return try {
@@ -125,7 +125,7 @@ fun Context.browse(url: String, newTask: Boolean = false): Boolean {
     }
 }
 
-inline fun Fragment.share(text: String, subject: String = "") = activity!!.share(text, subject)
+fun Fragment.share(text: String, subject: String = "") = activity!!.share(text, subject)
 
 fun Context.share(text: String, subject: String = ""): Boolean {
     return try {
@@ -141,7 +141,7 @@ fun Context.share(text: String, subject: String = ""): Boolean {
     }
 }
 
-inline fun Fragment.email(email: String, subject: String = "", text: String = "") =
+fun Fragment.email(email: String, subject: String = "", text: String = "") =
     activity!!.email(email, subject, text)
 
 fun Context.email(email: String, subject: String = "", text: String = ""): Boolean {
@@ -161,7 +161,7 @@ fun Context.email(email: String, subject: String = "", text: String = ""): Boole
 }
 
 @RequiresPermission(Manifest.permission.CALL_PHONE)
-inline fun Fragment.makeCall(number: String): Boolean = activity!!.makeCall(number)
+fun Fragment.makeCall(number: String): Boolean = activity!!.makeCall(number)
 
 @RequiresPermission(Manifest.permission.CALL_PHONE)
 fun Context.makeCall(number: String): Boolean {
@@ -175,7 +175,7 @@ fun Context.makeCall(number: String): Boolean {
     }
 }
 
-inline fun Fragment.sendSMS(number: String, text: String = ""): Boolean = activity!!.sendSMS(number, text)
+fun Fragment.sendSMS(number: String, text: String = ""): Boolean = activity!!.sendSMS(number, text)
 
 fun Context.sendSMS(number: String, text: String = ""): Boolean {
     return try {
