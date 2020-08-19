@@ -82,9 +82,13 @@ internal class ProgressDrawable(var context: Context, private val mParent: View)
     private var mHeight = 0.0
     private var mFinishing = false
 
-    private val mCallback = object : Drawable.Callback {
+    private val mCallback = object : NewCallback() {
 
-        override fun invalidateDrawable(d: Drawable?) {
+        override fun invalidateDrawable() {
+            invalidateSelf()
+        }
+
+        override fun invalidateDrawable(d: Drawable) {
             invalidateSelf()
         }
 
@@ -105,7 +109,18 @@ internal class ProgressDrawable(var context: Context, private val mParent: View)
         setupAnimators()
     }
 
-    private fun setSizeParameters(progressCircleWidth: Double, progressCircleHeight: Double, centerRadius: Double, strokeWidth: Double, arrowWidth: Float, arrowHeight: Float) {
+    abstract class NewCallback : Callback {
+        abstract fun invalidateDrawable()
+    }
+
+    private fun setSizeParameters(
+        progressCircleWidth: Double,
+        progressCircleHeight: Double,
+        centerRadius: Double,
+        strokeWidth: Double,
+        arrowWidth: Float,
+        arrowHeight: Float
+    ) {
         val ring = mRing
         val metrics = context.resources.displayMetrics
         val screenDensity = metrics.density
@@ -395,7 +410,7 @@ internal class ProgressDrawable(var context: Context, private val mParent: View)
         mAnimation = animation
     }
 
-    private class Ring(private val mCallback: Drawable.Callback) {
+    private class Ring(private val mCallback: NewCallback) {
         private val mTempBounds = RectF()
         private val mPaint = Paint()
         private val mArrowPaint = Paint()
@@ -659,7 +674,7 @@ internal class ProgressDrawable(var context: Context, private val mParent: View)
         }
 
         private fun invalidateSelf() {
-            mCallback.invalidateDrawable(null)
+            mCallback.invalidateDrawable()
         }
     }
 }
