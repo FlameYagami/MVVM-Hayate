@@ -13,7 +13,11 @@ class ThirdFragment : BaseFragment() {
 
     }
 
-    override fun initData(isViewVisible: Boolean) {
+    override fun initData() {
+
+    }
+
+    override fun observerViewModelEvent() {
 
     }
 }

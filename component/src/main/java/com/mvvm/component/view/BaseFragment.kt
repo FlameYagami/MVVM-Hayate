@@ -12,53 +12,33 @@ import org.greenrobot.eventbus.EventBus
 
 abstract class BaseFragment : CoroutineFragment() {
 
-    // 是否初始化控件
-    protected var isInitView: Boolean = false
-
     // 是否初始化数据
-    protected var isInitData: Boolean = false
-
-    //当前Fragment是否处于可见状态标志，防止因ViewPager的缓存机制而导致回调函数的触发
-    private var isViewVisible: Boolean = false
+    private var isFirstLoad = true
 
     abstract val layoutId: Int
 
     abstract fun initView(view: View)
 
-    abstract fun initData(isViewVisible: Boolean)
+    abstract fun initData()
+
+    abstract fun observerViewModelEvent()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(layoutId, container, false)
         if (applyEventBus()) EventBus.getDefault().register(this)
-        return view
+        return inflater.inflate(layoutId, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
-        isInitView = true
-        // 视图：可见 没有加载过数据
-        if (isViewVisible) {
-            initData(true)
-        }
+        observerViewModelEvent()
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            isViewVisible = true
+    override fun onResume() {
+        super.onResume()
+        if (isFirstLoad) {
+            initData()
+            isFirstLoad = false
         }
-        if (!isInitView) {
-            return
-        }
-        // 视图：不可见->可见 没有加载过数据
-        if (isViewVisible) {
-            initData(true)
-            return
-        }
-        // 视图：可见—>不可见 已经加载过数据
-        initData(false)
-        isViewVisible = false
     }
 
     open fun applyEventBus(): Boolean {
@@ -67,7 +47,7 @@ abstract class BaseFragment : CoroutineFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        isFirstLoad = false
         if (applyEventBus()) EventBus.getDefault().unregister(this)
-        isInitView = false
     }
 }
