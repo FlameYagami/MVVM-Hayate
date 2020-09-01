@@ -2,10 +2,11 @@ package com.mvvm.component.uc.dialog
 
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -50,15 +51,8 @@ class DialogCircularProgress : DialogFragment() {
             setOnKeyListener { _, keyCode, _ ->
                 keyCode == KeyEvent.KEYCODE_BACK && !dialogCancelable
             }
-
-            window?.apply {
-                // 解决Dialog显示后StatusBar变黑问题
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    statusBarColor = Color.TRANSPARENT
-                    navigationBarColor = Color.TRANSPARENT
-                }
-            }
+            // 设置自适应布局, 使DialogFragment不全屏, 规避StatusBar、NavigationBar变黑
+            window?.apply { setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT) }
         }
 
         circularProgressDrawable = CircularProgressDrawable(view.context).apply {
