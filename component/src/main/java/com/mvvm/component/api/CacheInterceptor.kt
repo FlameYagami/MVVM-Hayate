@@ -1,5 +1,6 @@
 package com.mvvm.component.api
 
+import com.mvvm.component.BaseApplication
 import com.mvvm.component.utils.NetUtils
 import okhttp3.CacheControl
 import okhttp3.Interceptor
@@ -11,7 +12,7 @@ class CacheInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        val netAvailable = NetUtils.isNetworkConnect()
+        val netAvailable = NetUtils.isNetworkConnect(BaseApplication.context)
 
         request = if (netAvailable) {
             request.newBuilder()

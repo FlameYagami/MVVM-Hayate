@@ -23,7 +23,7 @@ inline val Context.displayHeight: Int
 /**
  * Extension method to get displayMetrics in Context.displayMetricks
  */
-inline val Context.displayMetricks: DisplayMetrics
+inline val Context.displayMetrics: DisplayMetrics
     get() = resources.displayMetrics
 
 /**

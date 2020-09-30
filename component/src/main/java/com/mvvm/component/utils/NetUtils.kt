@@ -2,6 +2,8 @@ package com.mvvm.component.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import com.mvvm.component.BaseApplication.Companion.context
 
 
@@ -18,10 +20,14 @@ object NetUtils {
         NETWORK_UNKNOWN
     }
 
-    fun isNetworkConnect(): Boolean {
+    fun isNetworkConnect(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        return when {
+            Build.VERSION.SDK_INT >= 23 -> connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                    ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+                    ?: false
+            else -> connectivityManager.activeNetworkInfo?.isConnected ?: false
+        }
     }
 
     fun getNetworkType(): NetworkType {
