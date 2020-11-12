@@ -7,7 +7,4 @@
     <item name="stickyHeadView" type="id" />
     <item name="stickyNavView" type="id" />
     <item name="stickyContentView" type="id" />
-
-    <item name="status_bar_fake_status_bar_view" type="id"/>
-    <item name="status_bar_translucent_view" type="id"/>
 </resources>
