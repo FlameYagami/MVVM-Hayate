@@ -18,11 +18,18 @@ class AppManager {
          * 检查弱引用是否释放，若释放，则从栈中清理掉该元素
          */
         fun clearWeakReference(stack: Stack<WeakReference<Activity>>) {
-            with(stack.iterator()) {
-                while (hasNext()) {
-                    next().get() ?: apply { remove() }
+            synchronized(this) {
+                with(stack.iterator()) {
+                    while (hasNext()) {
+                        next().get() ?: apply { remove() }
+                    }
                 }
             }
+        }
+
+        fun topActivity(): Activity? {
+            clearWeakReference(instance.stack)
+            return instance.stack.lastElement().get()
         }
 
         /**
@@ -33,21 +40,14 @@ class AppManager {
         }
 
         /**
-         * 获取当前Activity（堆栈中最后一个压入的）
-         */
-        fun getTopActivity(): Activity? {
-            return instance.stack.let {
-                clearWeakReference(it)
-                it.lastElement().get()
-            }
-        }
-
-        /**
          * 结束当前Activity（堆栈中最后一个压入的）
          */
         fun finishTopActivity() {
-            getTopActivity()
-                ?.apply { finishActivity(this) }
+            clearWeakReference(instance.stack)
+            if (0 == instance.stack.size) return
+            instance.stack.lastElement().get()?.apply {
+                finishActivity(this)
+            }
         }
 
         /**
