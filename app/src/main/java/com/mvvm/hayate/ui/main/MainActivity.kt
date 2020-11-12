@@ -16,10 +16,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         get() = R.layout.activity_main
 
     private val tabFragmentClass = arrayOf(
-        FirstFragment::class.java,
-        SecondFragment::class.java,
-        ThirdFragment::class.java,
-        ProfileFragment::class.java
+            FirstFragment::class.java,
+            SecondFragment::class.java,
+            ThirdFragment::class.java,
+            ProfileFragment::class.java
     )
 
     override fun initViewAndData(binding: ActivityMainBinding) {

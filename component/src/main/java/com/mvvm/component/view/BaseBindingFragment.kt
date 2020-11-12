@@ -17,7 +17,7 @@ abstract class BaseBindingFragment<T : ViewDataBinding> : CoroutineFragment() {
     private lateinit var viewDataBinding: T
 
     // 是否初始化数据
-    private var isFirstLoad = false
+    private var isFirstLoad = true
 
     abstract val layoutId: Int
 

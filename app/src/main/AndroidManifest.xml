@@ -16,13 +16,25 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning"
 		tools:targetApi="n">
+
+		<meta-data
+			android:name="android.max_aspect"
+			android:value="2.4" />
+
+		<!-- 适配全面屏 -->
+		<meta-data
+			android:name="android.max_aspect"
+			android:value="2.4" /> <!-- 适配华为(hua wei)刘海屏 -->
+		<meta-data
+			android:name="android.notch_support"
+			android:value="true" /> <!-- 适配小米(xiao mi)刘海屏 -->
 		
 		<activity
 			android:name="com.mvvm.hayate.ui.prepose.LoadingActivity"
 			android:theme="@style/AppTheme.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-				
+
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
@@ -35,7 +47,8 @@
 			android:name="com.mvvm.hayate.ui.main.MainActivity"
 			android:configChanges="orientation|screenSize|keyboardHidden|navigation"
 			android:launchMode="singleTask"
-			android:windowSoftInputMode="adjustResize" />
+			android:windowSoftInputMode="adjustResize" >
+		</activity>
 		
 		<activity android:name="com.mvvm.hayate.ui.profile.FeedbackActivity" />
 		<activity android:name="com.mvvm.hayate.ui.profile.ProfileDetailActivity" />

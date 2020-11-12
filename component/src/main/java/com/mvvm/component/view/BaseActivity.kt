@@ -2,8 +2,9 @@ package com.mvvm.component.view
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import com.gyf.immersionbar.ktx.immersionBar
+import com.mvvm.component.R
 import com.mvvm.component.manager.AppManager
-import com.mvvm.component.utils.StatusBarUtils
 import org.greenrobot.eventbus.EventBus
 
 abstract class BaseActivity : CoroutineActivity() {
@@ -17,8 +18,14 @@ abstract class BaseActivity : CoroutineActivity() {
         // 强制竖屏
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(layoutId)
-        // 设置状态栏透明度,必须在setContentView()之后
-        if (applyStatusBar()) StatusBarUtils.setTranslucent(this, 16)
+        if (applyImmersionBar()) {
+            immersionBar {
+                fitsSystemWindows(true)
+                statusBarColor(R.color.colorPrimary)
+                navigationBarColor(R.color.colorPrimary)
+                autoDarkModeEnable(true)
+            }
+        }
         // 设置EventBus
         if (applyEventBus()) EventBus.getDefault().register(this)
         initViewAndData()
@@ -36,7 +43,7 @@ abstract class BaseActivity : CoroutineActivity() {
         return false
     }
 
-    open fun applyStatusBar(): Boolean {
+    open fun applyImmersionBar(): Boolean {
         return true
     }
 }

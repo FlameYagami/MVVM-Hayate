@@ -53,7 +53,7 @@ class LoadingActivity : BaseActivity() {
         }
     }
 
-    override fun applyStatusBar(): Boolean {
+    override fun applyImmersionBar(): Boolean {
         return false
     }
 }
