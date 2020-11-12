@@ -115,10 +115,12 @@ open class MultiItemAdapter<R, T> : RecyclerView.Adapter<ViewHolder>() {
         notifyItemInserted(position)
     }
 
+    @Suppress("UNCHECKED_CAST")
     open fun getFirstTitleItem(): R? {
         return dataVm.data.firstOrNull { it.itemType == TYPE_TITLE }?.let { it as R }
     }
 
+    @Suppress("UNCHECKED_CAST")
     open fun getLastTitleItem(): R? {
         return dataVm.data.lastOrNull { it.itemType == TYPE_TITLE }?.let { it as R }
     }
