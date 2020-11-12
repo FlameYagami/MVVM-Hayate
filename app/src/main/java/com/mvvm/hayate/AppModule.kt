@@ -1,5 +1,6 @@
 package com.mvvm.hayate
 
+import com.mvvm.component.uc.dialog.DialogToastVm
 import com.mvvm.hayate.model.repository.LoginRepository
 import com.mvvm.hayate.ui.login.LoginVm
 import com.mvvm.hayate.ui.main.FirstVm
@@ -23,6 +24,8 @@ val viewModelModule = module {
     viewModel { FirstVm() }
     viewModel { SecondVm() }
     viewModel { ProfileVm() }
+
+    viewModel { DialogToastVm() }
 }
 
 val repositoryModule = module {

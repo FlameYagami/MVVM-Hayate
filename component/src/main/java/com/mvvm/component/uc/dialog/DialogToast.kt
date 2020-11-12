@@ -1,28 +1,31 @@
 package com.mvvm.component.uc.dialog
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.gyf.immersionbar.ktx.immersionBar
 import com.mvvm.component.R
-import com.mvvm.component.ext.DELAY_TIME_DEFAULT
-import com.mvvm.component.ext.delayMain
+import com.mvvm.component.databinding.DialogToastBinding
+import com.mvvm.component.ext.observerEvent
+import com.mvvm.component.ext.obtainViewModel
+import com.mvvm.component.manager.AppManager
 import com.mvvm.component.utils.DisplayUtils
-import kotlinx.android.synthetic.main.dialog_toast.view.*
 import java.io.Serializable
 
 
 /**
- * Created by FlameYagami on 2016/12/1.
+ * Created by 八神火焰 on 2016/12/1.
  */
 class DialogToast : DialogFragment() {
+
+    val viewModel by obtainViewModel<DialogToastVm>()
+
+    private lateinit var binding: DialogToastBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,45 +33,43 @@ class DialogToast : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_toast, container, false).apply {
-            val data = arguments?.getSerializable(DialogToastData::class.java.simpleName) as DialogToastData
-            when (data.type) {
-                ToastType.SUCCESS -> R.drawable.ic_dialog_success to getString(R.string.success)
-                ToastType.FAILURE -> R.drawable.ic_dialog_failure to getString(R.string.failure)
-                ToastType.WARNING -> R.drawable.ic_dialog_warming to (data.resMessage?.let { getString(it) } ?: let { data.strMessage })
-            }.apply {
-                imgTip.setImageResource(first)
-                tvTip.text = second
-            }
-            if (data.applyNavigation) {
-                val normalMargin = DisplayUtils.dp2px(16 + 16)
-                val bottomMargin = DisplayUtils.dp2px(64 + 16)
-                val params = viewContent.layoutParams as FrameLayout.LayoutParams
-                params.setMargins(normalMargin, normalMargin, normalMargin, bottomMargin)
-                viewContent.layoutParams = params
-            }
-        }
+        binding = DialogToastBinding.inflate(layoutInflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        immersionBar {
+            fitsSystemWindows(true)
+            statusBarColor(R.color.colorPrimary)
+            navigationBarColor(R.color.colorPrimary)
+            autoDarkModeEnable(true)
+        }
         dialog?.apply {
             setCanceledOnTouchOutside(false)
             setCancelable(false)
-
             window?.apply {
                 setWindowAnimations(R.style.bottom_dialog_animation)
-                // 解决Dialog显示后StatusBar变黑问题
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    statusBarColor = Color.TRANSPARENT
-                }
             }
         }
     }
 
-    fun hide() {
-        if (true == dialog?.isShowing) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        binding.vm = viewModel.apply {
+            dialogToastData = arguments?.getSerializable(DialogToastData::class.java.simpleName) as DialogToastData
+            if (dialogToastData.applyNavigation) {
+                val normalMargin = DisplayUtils.dp2px(16 + 16)
+                val bottomMargin = DisplayUtils.dp2px(64 + 16)
+                val params = binding.viewContent.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(normalMargin, normalMargin, normalMargin, bottomMargin)
+                binding.viewContent.layoutParams = params
+            }
+            startViewModel()
+        }
+
+        observerEvent(viewModel.dismissDialogEvent) {
             dismiss()
         }
     }
@@ -91,8 +92,8 @@ fun showDialogToast(
     DialogToast().apply {
         val data = DialogToastData(type, applyNavigation, strMessage, resMessage)
         arguments = Bundle().apply { putSerializable(DialogToastData::class.java.simpleName, data) }
-        show(fragmentManager, DialogToast::class.java.simpleName)
-        delayMain(this, DELAY_TIME_DEFAULT) { hide() }
+        show(fragmentManager, AppManager.topActivity()?.javaClass?.simpleName
+                ?: DialogToast::class.java.simpleName)
     }
 }
 
