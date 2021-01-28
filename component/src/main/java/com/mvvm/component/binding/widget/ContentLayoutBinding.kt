@@ -4,9 +4,10 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.databinding.adapters.ListenerUtil
 import com.mvvm.component.R
-import com.mvvm.component.uc.recyclerview.LayoutManagerHelper
+import com.mvvm.component.uc.recyclerview.RecyclerManager
 import com.mvvm.component.binding.androidx.setMultiVm
 import com.mvvm.component.binding.androidx.setSglVm
+import com.mvvm.component.uc.recyclerview.multi.MultiItem
 import com.mvvm.component.uc.recyclerview.multi.MultiItemVm
 import com.mvvm.component.uc.recyclerview.sgl.SglItemVm
 import com.mvvm.component.uc.widget.ContentLayout
@@ -59,19 +60,19 @@ fun setRefreshListener(
 }
 
 @BindingAdapter("sglVm", "layoutManagerHelper", requireAll = false)
-fun <T> setSglVm(
+fun <IT> setSglVm(
     view: ContentLayout,
-    vm: SglItemVm<T>?,
-    layoutManagerHelper: LayoutManagerHelper?
+    vm: SglItemVm<IT>?,
+    recyclerManager: RecyclerManager<IT>?
 ) {
-    setSglVm(view.recyclerView, vm, layoutManagerHelper)
+    setSglVm(view.recyclerView, vm, recyclerManager)
 }
 
 @BindingAdapter("multiVm", "layoutManagerHelper", requireAll = false)
-fun <R, T> setMultiVm(
+fun <ITF, ITS> setMultiVm(
     view: ContentLayout,
-    vm: MultiItemVm<R, T>?,
-    layoutManagerHelper: LayoutManagerHelper?
+    vm: MultiItemVm<ITF, ITS>?,
+    recyclerManager: RecyclerManager<MultiItem>?
 ) {
-    setMultiVm(view.recyclerView, vm, layoutManagerHelper)
+    setMultiVm(view.recyclerView, vm, recyclerManager)
 }
