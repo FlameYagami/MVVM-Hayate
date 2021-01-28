@@ -14,7 +14,7 @@ class FirstFragment : BaseBindingFragment<FragmentFirstBinding>() {
 
     override fun initView(binding: FragmentFirstBinding) {
         binding.vm = viewModel.apply {
-
+            startViewModel()
         }
     }
 

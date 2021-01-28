@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-	
-	<data>
-		
-		<variable
-				name="vm"
-				type="com.mvvm.hayate.ui.main.FirstVm"/>
-	</data>
-	
-	<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="@color/colorBackground"
-			android:orientation="vertical">
-		
-		<com.mvvm.component.uc.widget.AppBarView
-				android:id="@+id/viewAppBar"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				app:textTitle="@string/main_first"
-				app:visibleNav="false"/>
-	</LinearLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.mvvm.hayate.ui.main.FirstVm" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
+
+        <com.mvvm.component.uc.widget.AppBarView
+            android:id="@+id/viewAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textTitle="@string/main_first"
+            app:visibleNav="false" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            layoutManagerHelper="@{vm.recyclerManager}"
+            sglVm="@{vm}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </layout>
