@@ -4,8 +4,8 @@
     <data>
 
         <variable
-		        name="vm"
-		        type="com.mvvm.hayate.ui.main.SecondVm"/>
+            name="vm"
+            type="com.mvvm.hayate.ui.main.SecondVm" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,12 +18,15 @@
             android:id="@+id/viewAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            onMenuClick="@{vm.onMenuClick}"
+            app:srcMenu="@mipmap/ic_nav_menu"
             app:textTitle="@string/main_second"
+            app:visibleMenu="true"
             app:visibleNav="false" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>

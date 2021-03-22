@@ -12,7 +12,6 @@ import com.mvvm.component.uc.recyclerview.multi.MultiItemVm
 import com.mvvm.component.uc.recyclerview.sgl.SglItemVm
 import com.mvvm.component.uc.widget.ContentLayout
 import com.mvvm.component.uc.widget.RefreshStatus
-import kotlinx.android.synthetic.main.widget_content_layout.view.*
 
 @BindingAdapter("isHeaderEnabled")
 fun setHeaderEnabled(view: ContentLayout, isHeaderEnabled: Boolean) {
@@ -65,7 +64,7 @@ fun <IT> setSglVm(
     vm: SglItemVm<IT>?,
     recyclerManager: RecyclerManager<IT>?
 ) {
-    setSglVm(view.recyclerView, vm, recyclerManager)
+    setSglVm(view.binding.recyclerView, vm, recyclerManager)
 }
 
 @BindingAdapter("multiVm", "layoutManagerHelper", requireAll = false)
@@ -74,5 +73,5 @@ fun <ITF, ITS> setMultiVm(
     vm: MultiItemVm<ITF, ITS>?,
     recyclerManager: RecyclerManager<MultiItem>?
 ) {
-    setMultiVm(view.recyclerView, vm, recyclerManager)
+    setMultiVm(view.binding.recyclerView, vm, recyclerManager)
 }

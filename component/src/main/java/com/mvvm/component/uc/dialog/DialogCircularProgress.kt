@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.mvvm.component.R
-import kotlinx.android.synthetic.main.dialog_circular_progress.*
+import com.mvvm.component.databinding.DialogCircularProgressBinding
 import java.io.Serializable
 
 /**
@@ -31,6 +31,9 @@ class DialogCircularProgress : DialogFragment() {
         R.color.colorOrange
     )
 
+    private var _binding: DialogCircularProgressBinding? = null
+    val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_FRAME, R.style.BaseDialog)
@@ -39,8 +42,9 @@ class DialogCircularProgress : DialogFragment() {
         dialogCancelable = data.cancelable
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_circular_progress, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = DialogCircularProgressBinding.inflate(LayoutInflater.from(context), container, true)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,13 +64,18 @@ class DialogCircularProgress : DialogFragment() {
             val colorArray = getColorSchemeResources(view.context)
             setColorSchemeColors(*colorArray)
         }
-        circleImageView.setImageDrawable(circularProgressDrawable)
+        binding.circleImageView.setImageDrawable(circularProgressDrawable)
         circularProgressDrawable?.start()
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDismissListener?.onDismiss(dialog)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     fun setDismissListener(onDismissListener: DialogInterface.OnDismissListener) {

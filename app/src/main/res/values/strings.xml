@@ -79,4 +79,11 @@
     <string name="app_version_update_message">新版本:%s, 是否立即升级?</string>
     <string name="app_download_background">应用后台下载中&#8230;</string>
     <string name="app_download_error">下载出错,请稍后重试!</string>
+
+    <!-- 测试 -->
+    <string name="dialog_edit">DialogEdit</string>
+    <string name="dialog_edit_message">This is a dialog edit message</string>
+    <string name="dialog_edit_hint">Input dialog edit message</string>
+    <string name="dialog_text">DialogText</string>
+    <string name="dialog_text_message">This is a dialog text message</string>
 </resources>

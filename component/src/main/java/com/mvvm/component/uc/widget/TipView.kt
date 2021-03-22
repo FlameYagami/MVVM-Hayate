@@ -6,19 +6,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.mvvm.component.R
+import com.mvvm.component.databinding.WidgetTipBinding
 import com.mvvm.component.ext.clear
 import com.mvvm.component.ext.gone
 import com.mvvm.component.ext.load
 import com.mvvm.component.ext.visible
-import kotlinx.android.synthetic.main.widget_tip.view.*
 
 class TipView(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     private var widthImage = 0
     private var heightImage = 0
 
+    private var _binding: WidgetTipBinding? = null
+    val binding get() = _binding!!
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.widget_tip, this)
+        _binding = WidgetTipBinding.inflate(LayoutInflater.from(context), this)
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TipView)
         val imageTip = typedArray.getResourceId(R.styleable.TipView_imageTip, R.drawable.ic_empty_data)
@@ -48,27 +51,27 @@ class TipView(context: Context, attrs: AttributeSet?) : LinearLayout(context, at
     }
 
     fun changeImageSize(tempWithImage: Int, tempHeightImage: Int) {
-        val layoutParams = imgTip.layoutParams as ViewGroup.LayoutParams
+        val layoutParams = binding.imgTip.layoutParams as ViewGroup.LayoutParams
         layoutParams.width = tempWithImage
         layoutParams.height = tempHeightImage
-        imgTip.layoutParams = layoutParams
+        binding.imgTip.layoutParams = layoutParams
     }
 
     fun tipImage(res: Int) {
-        if (-1 == res) imgTip.clear()
-        else imgTip.load(res)
+        if (-1 == res) binding.imgTip.clear()
+        else binding.imgTip.load(res)
     }
 
     fun tipText(res: Int) {
-        if (-1 == res) tvTip.text = ""
-        else tvTip.text = context.getString(res)
+        if (-1 == res) binding.tvTip.text = ""
+        else binding.tvTip.text = context.getString(res)
     }
 
     fun visibleImage(visible: Boolean) {
-        if (visible) imgTip.visible() else imgTip.gone()
+        if (visible) binding.imgTip.visible() else binding.imgTip.gone()
     }
 
     fun visibleText(visible: Boolean) {
-        if (visible) tvTip.visible() else tvTip.gone()
+        if (visible) binding.tvTip.visible() else binding.tvTip.gone()
     }
 }

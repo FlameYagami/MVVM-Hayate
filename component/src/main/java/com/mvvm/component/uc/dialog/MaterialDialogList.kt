@@ -2,31 +2,35 @@ package com.mvvm.component.uc.dialog
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mvvm.component.R
-import kotlinx.android.synthetic.main.include_material_dialog_top.view.*
-import kotlinx.android.synthetic.main.item_material_dialog_list.view.*
-import kotlinx.android.synthetic.main.material_dialog_list.view.*
+import com.mvvm.component.databinding.IncludeMaterialDialogTopBinding
+import com.mvvm.component.databinding.ItemMaterialDialogListBinding
+import com.mvvm.component.databinding.MaterialDialogListBinding
 
 class MaterialDialogList(context: Context) : MaterialDialogBase(context) {
 
+    private var _binding: MaterialDialogListBinding? = null
+    private var _topBinding: IncludeMaterialDialogTopBinding? = null
+    private val binding get() = _binding!!
+    private val topBinding get() = _topBinding!!
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.material_dialog_list, this)
+        _binding = MaterialDialogListBinding.inflate(LayoutInflater.from(context), this)
+        _topBinding = IncludeMaterialDialogTopBinding.bind(binding.root)
     }
 
     fun title(@StringRes res: Int): MaterialDialogList {
-        tvTitle.text = context.getString(res)
+        topBinding.tvTitle.text = context.getString(res)
         return this
     }
 
     fun listItems(res: List<String>, selection: ((dialog: MaterialDialogList, index: Int, text: String) -> Unit)? = null): MaterialDialogList {
-        with(recyclerView) {
+        with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
             adapter = ListAdapter(this@MaterialDialogList, res.toMutableList(), selection)
         }
@@ -51,8 +55,8 @@ class MaterialDialogList(context: Context) : MaterialDialogBase(context) {
         override fun getItemCount() = list.size
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_material_dialog_list, parent, false)
-            return ViewHolder(view)
+            val itemBinding = ItemMaterialDialogListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return ViewHolder(itemBinding)
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -69,8 +73,8 @@ class MaterialDialogList(context: Context) : MaterialDialogBase(context) {
     }
 }
 
-internal class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var tvTitle: TextView = itemView.tvItemTitle
+internal class ViewHolder(itemBinding: ItemMaterialDialogListBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+    var tvTitle = itemBinding.tvItemTitle
 }
 
 internal typealias ItemListener = ((dialog: MaterialDialogList, index: Int, text: String) -> Unit)?

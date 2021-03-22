@@ -7,22 +7,22 @@ import com.mvvm.hayate.databinding.FragmentFirstBinding
 
 class FirstFragment : BaseBindingFragment<FragmentFirstBinding>() {
 
-    private val viewModel by obtainViewModel<FirstVm>()
+	private val viewModel by obtainViewModel<FirstVm>()
 
-    override val layoutId: Int
-        get() = R.layout.fragment_first
+	override val layoutId: Int
+		get() = R.layout.fragment_first
 
-    override fun initView(binding: FragmentFirstBinding) {
-        binding.vm = viewModel.apply {
-            startViewModel()
-        }
-    }
+	override fun initView(binding: FragmentFirstBinding) {
+		binding.vm = viewModel.apply {
+			startViewModel()
+		}
+	}
 
-    override fun initData() {
+	override fun initData() {
 
-    }
+	}
 
-    override fun observerViewModelEvent() {
+	override fun observerViewModelEvent() {
 
-    }
+	}
 }

@@ -6,10 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.widget.Button
 import androidx.annotation.StringRes
-import com.mvvm.component.R
-import kotlinx.android.synthetic.main.include_material_dialog_bottom.view.*
-import kotlinx.android.synthetic.main.include_material_dialog_top.view.*
-import kotlinx.android.synthetic.main.material_dialog_edit.view.*
+import com.mvvm.component.databinding.IncludeMaterialDialogBottomBinding
+import com.mvvm.component.databinding.IncludeMaterialDialogTopBinding
+import com.mvvm.component.databinding.MaterialDialogEditBinding
 
 class MaterialDialogEdit(context: Context) : MaterialDialogBase(context) {
 
@@ -21,40 +20,54 @@ class MaterialDialogEdit(context: Context) : MaterialDialogBase(context) {
     private var negativeListeners: ((materialDialog: MaterialDialogEdit) -> Unit)? = null
     private var onMessageError: ((message: String) -> String)? = null
 
+    private var _binding: MaterialDialogEditBinding? = null
+    private var _topBinding: IncludeMaterialDialogTopBinding? = null
+    private var _bottomBinding: IncludeMaterialDialogBottomBinding? = null
+    private val binding get() = _binding!!
+    private val topBinding get() = _topBinding!!
+    private val bottomBinding get() = _bottomBinding!!
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.material_dialog_edit, this)
+        _binding = MaterialDialogEditBinding.inflate(LayoutInflater.from(context), this)
+        _bottomBinding = IncludeMaterialDialogBottomBinding.bind(binding.root)
+        _topBinding = IncludeMaterialDialogTopBinding.bind(binding.root)
 
-        textInputEditText.addTextChangedListener(object : TextWatcher {
+        with(binding) {
+            textInputEditText.addTextChangedListener(object : TextWatcher {
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                onMessageError?.invoke(textInputEditText.text.toString().trim())?.apply {
-                    textInputLayout.error = this
-                    textInputLayout.isErrorEnabled = isNotBlank()
                 }
-            }
 
-            override fun afterTextChanged(text: Editable?) {
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    onMessageError?.invoke(textInputEditText.text.toString().trim())?.apply {
+                        textInputLayout.error = this
+                        textInputLayout.isErrorEnabled = isNotBlank()
+                    }
+                }
 
-            }
-        })
+                override fun afterTextChanged(text: Editable?) {
 
-        btnCancel.setOnClickListener { onActionButtonClicked(btnCancel) }
-        btnConfirm.setOnClickListener { onActionButtonClicked(btnConfirm) }
+                }
+            })
+        }
+
+        with(bottomBinding) {
+            btnCancel.setOnClickListener { onActionButtonClicked(btnCancel) }
+            btnConfirm.setOnClickListener { onActionButtonClicked(btnConfirm) }
+        }
     }
 
     private fun onActionButtonClicked(which: Button) {
         when (which) {
-            btnCancel -> {
+            bottomBinding.btnCancel -> {
                 negativeListeners?.invoke(this)
                 true
             }
-            btnConfirm -> {
-                val message = textInputEditText.text.toString().trim()
-                val enabled = !textInputLayout.isErrorEnabled && if (messageLengthEnabled) message.length in messageMinLength..messageMaxLength else true
+            bottomBinding.btnConfirm -> {
+                val message = binding.textInputEditText.text.toString().trim()
+                val enabled =
+                    !binding.textInputLayout.isErrorEnabled && if (messageLengthEnabled) message.length in messageMinLength..messageMaxLength else true
                 if (enabled) positiveListeners?.invoke(this, message)
                 enabled
             }
@@ -67,13 +80,13 @@ class MaterialDialogEdit(context: Context) : MaterialDialogBase(context) {
     }
 
     fun title(@StringRes res: Int): MaterialDialogEdit {
-        tvTitle.text = context.getString(res)
+        topBinding.tvTitle.text = context.getString(res)
         return this
     }
 
     fun message(text: CharSequence): MaterialDialogEdit {
-        textInputEditText.setText(text)
-        textInputEditText.setSelection(text.length)
+        binding.textInputEditText.setText(text)
+        binding.textInputEditText.setSelection(text.length)
         return this
     }
 
@@ -82,7 +95,7 @@ class MaterialDialogEdit(context: Context) : MaterialDialogBase(context) {
     }
 
     fun messageHint(@StringRes res: Int): MaterialDialogEdit {
-        textInputEditText.hint = context.getString(res)
+        binding.textInputEditText.hint = context.getString(res)
         return this
     }
 
@@ -100,8 +113,8 @@ class MaterialDialogEdit(context: Context) : MaterialDialogBase(context) {
         messageMinLength = minLength
         messageMaxLength = maxLength
         messageLengthEnabled = true
-        textInputLayout.isCounterEnabled = true
-        textInputLayout.counterMaxLength = maxLength
+        binding.textInputLayout.isCounterEnabled = true
+        binding.textInputLayout.counterMaxLength = maxLength
         return this
     }
 

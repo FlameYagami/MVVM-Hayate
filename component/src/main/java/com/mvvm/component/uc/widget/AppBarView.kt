@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import com.google.android.material.appbar.AppBarLayout
 import com.mvvm.component.R
-import kotlinx.android.synthetic.main.widget_appbar.view.*
+import com.mvvm.component.databinding.WidgetAppbarBinding
+import com.mvvm.component.ext.inflateLayout
+import com.mvvm.component.ext.inflater
 
 /**
  * Created by FlameYagami on 2017/1/6.
@@ -17,8 +19,11 @@ class AppBarView(context: Context, attrs: AttributeSet? = null) : AppBarLayout(c
     var onNavigationClickListener: (() -> Unit)? = null
     var onMenuClickListener: (() -> Unit)? = null
 
+    private var _binding: WidgetAppbarBinding? = null
+    val binding get() = _binding!!
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.widget_appbar, this)
+        _binding = WidgetAppbarBinding.inflate(LayoutInflater.from(context), this, true)
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.AppBarView)
         val textTitle = typedArray.getString(R.styleable.AppBarView_textTitle)
@@ -29,20 +34,22 @@ class AppBarView(context: Context, attrs: AttributeSet? = null) : AppBarLayout(c
         val menuResId = typedArray.getResourceId(R.styleable.AppBarView_srcMenu, R.mipmap.ic_nav_menu)
         typedArray.recycle()
 
-        tvTitle.text = textTitle
-        if (visibleNav) {
-            imgNav.visibility = View.VISIBLE
-            imgNav.setImageResource(navResId)
+        with(binding) {
+            tvTitle.text = textTitle
+            if (visibleNav) {
+                imgNav.visibility = View.VISIBLE
+                imgNav.setImageResource(navResId)
+            }
+            if (visibleMenu) {
+                imgMenu.visibility = View.VISIBLE
+                imgMenu.setImageResource(menuResId)
+            }
+            if (visibleLogo) {
+                imgLogo.visibility = View.VISIBLE
+            }
+            imgNav.setOnClickListener { onNavigationClickListener?.invoke() }
+            imgMenu.setOnClickListener { onMenuClickListener?.invoke() }
         }
-        if (visibleMenu) {
-            imgMenu.visibility = View.VISIBLE
-            imgMenu.setImageResource(menuResId)
-        }
-        if (visibleLogo) {
-            imgLogo.visibility = View.VISIBLE
-        }
-        imgNav.setOnClickListener { onNavigationClickListener?.invoke() }
-        imgMenu.setOnClickListener { onMenuClickListener?.invoke() }
     }
 
     fun onNavigationClick(onNavigationClickListener: () -> Unit) {
@@ -54,10 +61,10 @@ class AppBarView(context: Context, attrs: AttributeSet? = null) : AppBarLayout(c
     }
 
     fun setMenuVisible(visible: Boolean) {
-        imgMenu.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+        binding.imgMenu.visibility = if (visible) View.VISIBLE else View.INVISIBLE
     }
 
     fun setTitleText(titleText: String) {
-        tvTitle.text = titleText
+        binding.tvTitle.text = titleText
     }
 }

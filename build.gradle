@@ -24,10 +24,11 @@ buildscript {
         swiperefreshlayoutVersion = '1.1.0'
 
         // Lifecycle
-        lifecycleVersion = '2.2.0'
+        lifecycleVersion = '2.3.0'
+        lifecycleExtVersion = '2.2.0'
 
         // Kotlin
-        kotlinVersion = '1.4.10'
+        kotlinVersion = '1.4.31'
         kotlinCoroutineVersion = '1.4.1'
 
         // Koin
@@ -40,16 +41,17 @@ buildscript {
         materialDialogVersion = "3.3.0"
     }
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url "https://maven.appspector.com/artifactory/android-sdk" }
-        maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
+        mavenCentral()
         google()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -57,11 +59,13 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url "https://maven.appspector.com/artifactory/android-sdk" }
-        maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
+        mavenCentral()
         google()
+        jcenter()
     }
 }
 

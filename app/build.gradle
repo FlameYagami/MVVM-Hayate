@@ -1,7 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 
 android {
     buildToolsVersion rootProject.buildToolsVersion
@@ -85,7 +86,6 @@ android {
 dependencies {
     implementation project(':component')
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
     // BottomNavigationViewEx
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'

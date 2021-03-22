@@ -10,4 +10,10 @@
         <item>@string/male</item>
         <item>@string/female</item>
     </string-array>
+
+    <!-- 数据测试 -->
+    <string-array name="menu_operation_test">
+        <item>@string/dialog_edit</item>
+        <item>@string/dialog_text</item>
+    </string-array>
 </resources>

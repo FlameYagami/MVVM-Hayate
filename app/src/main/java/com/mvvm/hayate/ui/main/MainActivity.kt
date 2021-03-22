@@ -6,7 +6,6 @@ import com.mvvm.component.view.BaseBindingActivity
 import com.mvvm.component.view.BaseFragmentAdapter
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
@@ -16,22 +15,22 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         get() = R.layout.activity_main
 
     private val tabFragmentClass = arrayOf(
-            FirstFragment::class.java,
-            SecondFragment::class.java,
-            ThirdFragment::class.java,
-            ProfileFragment::class.java
+        FirstFragment::class.java,
+        SecondFragment::class.java,
+        ThirdFragment::class.java,
+        ProfileFragment::class.java
     )
 
     override fun initViewAndData(binding: ActivityMainBinding) {
         binding.vm = viewModel.apply {
             adapter = BaseFragmentAdapter(supportFragmentManager, tabFragmentClass.toList())
         }
-        with(bottomNavigation) {
+        with(binding.bottomNavigation) {
             enableAnimation(false)
             labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
             isItemHorizontalTranslationEnabled = false
             setTextSize(12F)
-            setupWithViewPager(viewPager)
+            setupWithViewPager(binding.viewPager)
         }
     }
 }

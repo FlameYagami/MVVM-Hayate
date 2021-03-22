@@ -5,29 +5,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.annotation.StringRes
-import com.mvvm.component.R
-import kotlinx.android.synthetic.main.include_material_dialog_bottom.view.*
-import kotlinx.android.synthetic.main.include_material_dialog_top.view.*
-import kotlinx.android.synthetic.main.material_dialog_text.view.*
+import com.mvvm.component.databinding.IncludeMaterialDialogBottomBinding
+import com.mvvm.component.databinding.IncludeMaterialDialogTopBinding
+import com.mvvm.component.databinding.MaterialDialogTextBinding
 
 class MaterialDialogText(context: Context) : MaterialDialogBase(context) {
 
     private var positiveListeners: ((materialDialog: MaterialDialogText) -> Unit)? = null
     private var negativeListeners: ((materialDialog: MaterialDialogText) -> Unit)? = null
 
-    init {
-        LayoutInflater.from(context).inflate(R.layout.material_dialog_text, this)
+    private var _binding: MaterialDialogTextBinding? = null
+    private var _topBinding: IncludeMaterialDialogTopBinding? = null
+    private var _bottomBinding: IncludeMaterialDialogBottomBinding? = null
+    private val binding get() = _binding!!
+    private val topBinding get() = _topBinding!!
+    private val bottomBinding get() = _bottomBinding!!
 
-        btnCancel.setOnClickListener { view -> onActionButtonClicked(view as Button) }
-        btnConfirm.setOnClickListener { view -> onActionButtonClicked(view as Button) }
+    init {
+        _binding = MaterialDialogTextBinding.inflate(LayoutInflater.from(context), this)
+        _topBinding = IncludeMaterialDialogTopBinding.bind(binding.root)
+        _bottomBinding = IncludeMaterialDialogBottomBinding.bind(binding.root)
+
+        with(bottomBinding) {
+            btnCancel.setOnClickListener { view -> onActionButtonClicked(view as Button) }
+            btnConfirm.setOnClickListener { view -> onActionButtonClicked(view as Button) }
+        }
     }
 
     private fun onActionButtonClicked(which: Button) {
         when (which) {
-            btnCancel -> {
+            bottomBinding.btnCancel -> {
                 negativeListeners?.invoke(this)
             }
-            btnConfirm -> {
+            bottomBinding.btnConfirm -> {
                 positiveListeners?.invoke(this)
             }
         }
@@ -41,7 +51,7 @@ class MaterialDialogText(context: Context) : MaterialDialogBase(context) {
     }
 
     fun title(res: String): MaterialDialogText {
-        tvTitle.text = res
+        topBinding.tvTitle.text = res
         return this
     }
 
@@ -50,7 +60,7 @@ class MaterialDialogText(context: Context) : MaterialDialogBase(context) {
     }
 
     fun message(res: String): MaterialDialogText {
-        tvMessage.text = res
+        binding.tvMessage.text = res
         return this
     }
 
@@ -65,7 +75,7 @@ class MaterialDialogText(context: Context) : MaterialDialogBase(context) {
     }
 
     fun negativeButtonVisible(visible: Boolean): MaterialDialogText {
-        btnCancel.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+        bottomBinding.btnCancel.visibility = if (visible) View.VISIBLE else View.INVISIBLE
         return this
     }
 
