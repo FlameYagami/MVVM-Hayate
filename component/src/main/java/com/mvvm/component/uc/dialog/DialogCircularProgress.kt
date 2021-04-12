@@ -43,7 +43,7 @@ class DialogCircularProgress : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = DialogCircularProgressBinding.inflate(LayoutInflater.from(context), container, true)
+        _binding = DialogCircularProgressBinding.inflate(LayoutInflater.from(context), container, false)
         return binding.root
     }
 

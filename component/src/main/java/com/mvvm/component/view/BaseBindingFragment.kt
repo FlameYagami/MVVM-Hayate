@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.EventBus
 
 abstract class BaseBindingFragment<T : ViewDataBinding> : CoroutineFragment() {
 
-    private lateinit var viewDataBinding: T
+    protected lateinit var viewDataBinding: T
 
     // 是否初始化数据
     private var isFirstLoad = true
@@ -54,8 +54,8 @@ abstract class BaseBindingFragment<T : ViewDataBinding> : CoroutineFragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         isFirstLoad = false
         if (applyEventBus()) EventBus.getDefault().unregister(this)
+        super.onDestroyView()
     }
 }

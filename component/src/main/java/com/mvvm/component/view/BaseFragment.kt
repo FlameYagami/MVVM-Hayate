@@ -46,8 +46,8 @@ abstract class BaseFragment : CoroutineFragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         isFirstLoad = false
         if (applyEventBus()) EventBus.getDefault().unregister(this)
+        super.onDestroyView()
     }
 }

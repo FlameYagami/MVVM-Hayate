@@ -33,10 +33,10 @@ abstract class BaseActivity : CoroutineActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         // 注销EventBus
         if (applyEventBus()) EventBus.getDefault().unregister(this)
         AppManager.finishActivity(this)
+        super.onDestroy()
     }
 
     open fun applyEventBus(): Boolean {

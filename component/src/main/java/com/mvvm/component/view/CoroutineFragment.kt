@@ -8,7 +8,7 @@ import kotlinx.coroutines.cancel
 abstract class CoroutineFragment : Fragment(), CoroutineScope by MainScope() {
 
     override fun onDestroy() {
-        super.onDestroy()
         cancel()
+        super.onDestroy()
     }
 }
