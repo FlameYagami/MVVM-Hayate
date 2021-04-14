@@ -25,7 +25,8 @@
             app:visibleNav="false" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            layoutManagerHelper="@{vm.pagingManager}"
+            sglPagingVm="@{vm}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

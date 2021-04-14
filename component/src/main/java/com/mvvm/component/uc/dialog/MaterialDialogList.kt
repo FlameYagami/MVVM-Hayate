@@ -63,7 +63,7 @@ class MaterialDialogList(context: Context) : MaterialDialogBase(context) {
             with((holder as ViewHolder)) {
                 tvTitle.text = list[position]
                 tvTitle.setOnClickListener {
-                    itemListener?.invoke(materialDialog, holder.adapterPosition, list[position])
+                    itemListener?.invoke(materialDialog, holder.absoluteAdapterPosition, list[position])
                     if (materialDialog.autoDismissEnabled) {
                         materialDialog.dismiss()
                     }

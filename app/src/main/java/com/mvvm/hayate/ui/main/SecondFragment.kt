@@ -8,6 +8,7 @@ import com.mvvm.component.uc.dialog.MaterialDialogText
 import com.mvvm.component.view.BaseBindingFragment
 import com.mvvm.hayate.R
 import com.mvvm.hayate.databinding.FragmentScendBinding
+import kotlinx.coroutines.InternalCoroutinesApi
 
 class SecondFragment : BaseBindingFragment<FragmentScendBinding>() {
 
@@ -16,9 +17,10 @@ class SecondFragment : BaseBindingFragment<FragmentScendBinding>() {
 	override val layoutId: Int
 		get() = R.layout.fragment_scend
 
+	@InternalCoroutinesApi
 	override fun initView(binding: FragmentScendBinding) {
 		binding.vm = viewModel.apply {
-
+			startViewModel()
 		}
 	}
 
@@ -32,8 +34,8 @@ class SecondFragment : BaseBindingFragment<FragmentScendBinding>() {
 				.title(R.string.main_second)
 				.listItems(it) { _, _, text ->
 					when (text) {
-                        getString(R.string.dialog_edit) -> showDialogEdit()
-                        getString(R.string.dialog_text) -> showDialogText()
+						getString(R.string.dialog_edit) -> showDialogEdit()
+						getString(R.string.dialog_text) -> showDialogText()
 					}
 				}.show()
 		}

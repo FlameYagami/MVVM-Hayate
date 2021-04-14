@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.component.ext.isNotNull
-import com.mvvm.component.uc.recyclerview.*
+import com.mvvm.component.uc.recyclerview.ItemType
+import com.mvvm.component.uc.recyclerview.RecyclerManager
+import com.mvvm.component.uc.recyclerview.ViewHolder
 import com.mvvm.component.uc.recyclerview.sgl.SglDataSource
 import com.mvvm.component.utils.DisplayUtils
 
@@ -57,13 +59,15 @@ open class BaseItemAdapter<IT> : RecyclerView.Adapter<ViewHolder>() {
 	}
 
 	private fun setItemClickListener(holder: ViewHolder) {
-		holder.binding.root.setOnClickListener {
-			dataSource.onItemClickListener?.invoke(holder.binding.root, dataSource.toList(), holder.adapterPosition)
+		with(holder) {
+			binding.root.setOnClickListener {
+				dataSource.itemListener.onItemClickListener?.invoke(binding.root, dataSource[absoluteAdapterPosition])
+			}
+			binding.root.setOnLongClickListener {
+				dataSource.itemListener.onItemLongClickListener?.invoke(binding.root, dataSource[absoluteAdapterPosition])
+				true
+			}
+			dataSource.itemListener.onChildViewClickListener?.invoke(binding.root, dataSource[absoluteAdapterPosition])
 		}
-		holder.binding.root.setOnLongClickListener {
-			dataSource.onItemLongClickListener?.invoke(holder.binding.root, dataSource.toList(), holder.adapterPosition)
-			true
-		}
-		dataSource.onChildViewClickListener?.invoke(holder.binding.root, dataSource.toList(), holder.adapterPosition)
 	}
 }

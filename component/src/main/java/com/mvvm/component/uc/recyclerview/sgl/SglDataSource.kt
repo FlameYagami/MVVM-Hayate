@@ -1,6 +1,6 @@
 package com.mvvm.component.uc.recyclerview.sgl
 
-import android.view.View
+import com.mvvm.component.uc.recyclerview.ItemListener
 import com.mvvm.component.uc.recyclerview.RecyclerManager
 import com.mvvm.component.uc.recyclerview.base.AdapterBlock
 
@@ -8,12 +8,10 @@ open class SglDataSource<IT> internal constructor(
 	initialData: List<IT> = mutableListOf()
 ) {
 
-	var onItemClickListener: ((view: View, data: List<IT>, position: Int) -> Unit)? = null
-	var onItemLongClickListener: ((view: View, data: List<IT>, position: Int) -> Unit)? = null
-	var onChildViewClickListener: ((view: View, data: List<IT>, position: Int) -> Unit)? = null
-
 	private var items = initialData.toMutableList()
 	private var helper: RecyclerManager<IT>? = null
+
+	val itemListener = ItemListener<IT>()
 
 	operator fun get(index: Int): IT = items[index]
 
@@ -119,17 +117,5 @@ open class SglDataSource<IT> internal constructor(
 		helper?.adapter?.apply {
 			block.invoke(this)
 		}
-	}
-
-	fun onItemClick(listener: (view: View, data: List<IT>, position: Int) -> Unit) {
-		onItemClickListener = listener
-	}
-
-	fun onItemLongClick(listener: (view: View, data: List<IT>, position: Int) -> Unit) {
-		onItemLongClickListener = listener
-	}
-
-	fun onChildViewClick(listener: (view: View, data: List<IT>, position: Int) -> Unit) {
-		this.onChildViewClickListener = listener
 	}
 }

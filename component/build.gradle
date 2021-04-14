@@ -57,6 +57,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     api "androidx.lifecycle:lifecycle-extensions:$lifecycleExtVersion"
+    api 'androidx.paging:paging-runtime:3.0.0-beta01'
 
     // Kotlin
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"

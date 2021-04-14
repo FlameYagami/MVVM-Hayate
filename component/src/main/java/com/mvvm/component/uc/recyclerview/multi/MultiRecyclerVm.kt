@@ -7,8 +7,8 @@ import com.mvvm.component.uc.recyclerview.sgl.SglDataSource
 /**
  * Created by FlameYagami on 2018/1/3.
  */
-abstract class MultiItemVm<ITF, ITS> : BaseItemVm() {
+abstract class MultiRecyclerVm<ITF, ITS> : BaseItemVm() {
 	abstract val recyclerManager: RecyclerManager<MultiItem>
 	var dataSource = SglDataSource<MultiItem>()
-	var adapter = MultiItemAdapter<ITF, ITS>()
+	var adapter = MultiRecyclerAdapter<ITF, ITS>()
 }

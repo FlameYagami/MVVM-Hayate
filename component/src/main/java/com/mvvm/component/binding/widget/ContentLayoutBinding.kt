@@ -8,8 +8,8 @@ import com.mvvm.component.uc.recyclerview.RecyclerManager
 import com.mvvm.component.binding.androidx.setMultiVm
 import com.mvvm.component.binding.androidx.setSglVm
 import com.mvvm.component.uc.recyclerview.multi.MultiItem
-import com.mvvm.component.uc.recyclerview.multi.MultiItemVm
-import com.mvvm.component.uc.recyclerview.sgl.SglItemVm
+import com.mvvm.component.uc.recyclerview.multi.MultiRecyclerVm
+import com.mvvm.component.uc.recyclerview.sgl.SglRecyclerVm
 import com.mvvm.component.uc.widget.ContentLayout
 import com.mvvm.component.uc.widget.RefreshStatus
 
@@ -61,7 +61,7 @@ fun setRefreshListener(
 @BindingAdapter("sglVm", "layoutManagerHelper", requireAll = false)
 fun <IT> setSglVm(
     view: ContentLayout,
-    vm: SglItemVm<IT>?,
+    vm: SglRecyclerVm<IT>?,
     recyclerManager: RecyclerManager<IT>?
 ) {
     setSglVm(view.binding.recyclerView, vm, recyclerManager)
@@ -69,9 +69,9 @@ fun <IT> setSglVm(
 
 @BindingAdapter("multiVm", "layoutManagerHelper", requireAll = false)
 fun <ITF, ITS> setMultiVm(
-    view: ContentLayout,
-    vm: MultiItemVm<ITF, ITS>?,
-    recyclerManager: RecyclerManager<MultiItem>?
+	view: ContentLayout,
+	vm: MultiRecyclerVm<ITF, ITS>?,
+	recyclerManager: RecyclerManager<MultiItem>?
 ) {
     setMultiVm(view.binding.recyclerView, vm, recyclerManager)
 }

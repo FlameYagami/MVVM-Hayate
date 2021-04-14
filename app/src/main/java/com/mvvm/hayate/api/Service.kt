@@ -4,12 +4,10 @@ import com.mvvm.component.api.HttpResp
 import com.mvvm.hayate.model.app.AppUpdateResp
 import com.mvvm.hayate.model.login.LoginReq
 import com.mvvm.hayate.model.login.LoginResp
+import com.mvvm.hayate.model.main.RepoResp
 import com.mvvm.hayate.model.profile.AvatarResp
 import okhttp3.RequestBody
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface Service {
 
@@ -42,4 +40,10 @@ interface Service {
     suspend fun checkAppUpdate(
         @Field("versionName") versionName: String
     ): HttpResp<AppUpdateResp>
+
+    @GET("search/repositories?sort=stars&q=Android")
+    suspend fun searchRepos(
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int
+    ): RepoResp
 }

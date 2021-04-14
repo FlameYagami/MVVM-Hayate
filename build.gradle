@@ -24,15 +24,15 @@ buildscript {
         swiperefreshlayoutVersion = '1.1.0'
 
         // Lifecycle
-        lifecycleVersion = '2.3.0'
+        lifecycleVersion = '2.3.1'
         lifecycleExtVersion = '2.2.0'
 
         // Kotlin
         kotlinVersion = '1.4.31'
-        kotlinCoroutineVersion = '1.4.1'
+        kotlinCoroutineVersion = '1.4.2'
 
         // Koin
-        koinVersion = '2.1.6'
+        koinVersion = '2.2.1'
 
         // Retrofit
         retrofitVersion = '2.9.0'
