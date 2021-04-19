@@ -51,7 +51,8 @@ dependencies {
     // AndroidX
     api "androidx.core:core-ktx:$ktxVersion"
     api "androidx.multidex:multidex:$multidexVersion"
-    api "androidx.appcompat:appcompat:$appcompatVersion"
+    api "androidx.activity:activity-ktx:$activityVersion"
+    api "androidx.fragment:fragment-ktx:$fragmentVersion"
     api "androidx.coordinatorlayout:coordinatorlayout:$coordinatorlayoutVersion"
     api "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayoutVersion"
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"

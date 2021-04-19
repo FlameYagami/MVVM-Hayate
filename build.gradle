@@ -11,13 +11,14 @@ buildscript {
         sdkVersion = 30
 
         // AndroidX
+        activityVersion = '1.2.1'
+        fragmentVersion = '1.3.0'
         ktxVersion = '1.3.2'
         legacyVersion = '1.0.0'
         runtimeVersion = '2.4.0'
         materialVersion = '1.2.1'
         cardviewVersion = '1.0.0'
         multidexVersion = '2.0.1'
-        appcompatVersion = '1.2.0'
         recyclerviewVersion = '1.1.0'
         constraintlayoutVersion = '2.0.4'
         coordinatorlayoutVersion = '1.1.0'
@@ -28,7 +29,7 @@ buildscript {
         lifecycleExtVersion = '2.2.0'
 
         // Kotlin
-        kotlinVersion = '1.4.31'
+        kotlinVersion = '1.4.32'
         kotlinCoroutineVersion = '1.4.2'
 
         // Koin
@@ -50,7 +51,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
