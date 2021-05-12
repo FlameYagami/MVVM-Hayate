@@ -1,10 +1,12 @@
 package com.mvvm.hayate.ui.profile
 
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.ActivityResult
@@ -34,6 +36,8 @@ class AvatarVm : BaseVm() {
 	val selectAvatarEvent = MutableLiveData<LiveDataEvent<Unit>>()
 	val uploadAvatarEvent = MutableLiveData<LiveDataEvent<String>>()
 	val registerActivityResultEvent = MutableLiveData<LiveDataEvent<Pair<Intent, Int>>>()
+
+	lateinit var tempProfileIconUri: Uri
 
 	init {
 		updateAvatar()
@@ -81,9 +85,9 @@ class AvatarVm : BaseVm() {
 
 	fun handleAvatarActivityResult(activityResult: ActivityResult) {
 		when (activityResult.resultCode) {
-            ContractsConst.AVATAR_CAMERA -> cropImageBySdk()
-            ContractsConst.AVATAR_LOCAL -> activityResult.data?.data?.apply { cropImage(this) }
-            ContractsConst.AVATAR_CROP -> saveCropImage()
+			ContractsConst.AVATAR_CAMERA -> cropImageBySdk()
+			ContractsConst.AVATAR_LOCAL -> activityResult.data?.data?.apply { cropImage(this) }
+			ContractsConst.AVATAR_CROP -> saveCropImage()
 			else -> Logger.e("handleAvatarActivityResult error")
 		}
 	}
@@ -102,13 +106,24 @@ class AvatarVm : BaseVm() {
 	}
 
 	private fun saveCropImage() {
+		// 针对Android11以上系统先将公共目录下保存的图片拷贝至私有目录下
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+			val inputStream = BaseApplication.context.contentResolver.openInputStream(tempProfileIconUri)!!
+			val outputStream = BufferedOutputStream(FileOutputStream(PathManager.avatarPath))
+			android.os.FileUtils.copy(inputStream, outputStream)
+			outputStream.flush()
+			outputStream.close()
+			inputStream.close()
+			// 拷贝完后直接删除公有目录的图片
+			BaseApplication.context.contentResolver.delete(tempProfileIconUri, null)
+		}
 		BitmapFactory.decodeFile(PathManager.avatarPath)?.apply {
 			try {
 				val profileIconTempFile = File("${PathManager.profileIconDir}photo${System.currentTimeMillis()}.jpg")
-				val bos = BufferedOutputStream(FileOutputStream(profileIconTempFile))
-				compress(Bitmap.CompressFormat.JPEG, 100, bos)
-				bos.flush()
-				bos.close()
+				val outputStream = BufferedOutputStream(FileOutputStream(profileIconTempFile))
+				compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+				outputStream.flush()
+				outputStream.close()
 				uploadAvatarEvent.value = LiveDataEvent(profileIconTempFile.path)
 			} catch (e: Exception) {
 				Logger.e("saveCropImage => ${e.message}")
@@ -123,6 +138,17 @@ class AvatarVm : BaseVm() {
 	 */
 	private fun cropImage(uri: Uri) {
 		FileUtils.createDirectory(PathManager.profileIconDir)
+		val outputUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+			val resolver = BaseApplication.context.contentResolver
+			val icon = ContentValues().apply {
+				put(MediaStore.Images.Media.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}${File.separator}${BaseApplication.context.packageName}")
+				put(MediaStore.Images.Media.DISPLAY_NAME, "icon.jpg")
+				put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+			}
+			resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, icon)!!.also { tempProfileIconUri = it }
+		} else {
+			Uri.fromFile(File(PathManager.avatarPath))
+		}
 		val intent = Intent("com.android.camera.action.CROP").apply {
 			addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
 			setDataAndType(uri, "image/*")
@@ -131,9 +157,9 @@ class AvatarVm : BaseVm() {
 			putExtra("aspectY", 1)
 			putExtra("outputX", 160)
 			putExtra("outputY", 160)
-			putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(File(PathManager.avatarPath)))// 保存到原文件
 			putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString())// 返回格式
 			putExtra("return-data", false)
+			putExtra(MediaStore.EXTRA_OUTPUT, outputUri) // 保存到原文件
 		}
 		registerActivityResultEvent.value = LiveDataEvent(intent to ContractsConst.AVATAR_CROP)
 	}

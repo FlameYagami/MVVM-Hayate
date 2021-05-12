@@ -21,39 +21,39 @@ import kotlinx.coroutines.runBlocking
 
 class LoadingActivity : BaseActivity() {
 
-    override val layoutId: Int
-        get() = R.layout.activity_loading
+	override val layoutId: Int
+		get() = R.layout.activity_loading
 
-    override fun initViewAndData() {
-        checkPermission()
-    }
+	override fun initViewAndData() {
+		checkPermission()
+	}
 
-    private fun delayToActivity() {
-        GlobalScope.launch {
-            delay(2000)
-            when {
-                SpUtils.getString(ProfileManager.PROFILE_INFO).isNotBlank() -> startActivity(intentFor<MainActivity>().newTask().clearTask())
-                else -> startActivity(intentFor<LoginActivity>().newTask().clearTask())
-            }
-        }
-    }
+	private fun delayToActivity() {
+		GlobalScope.launch {
+			delay(2000)
+			when {
+				SpUtils.getString(ProfileManager.PROFILE_INFO).isNotBlank() -> startActivity(intentFor<MainActivity>().newTask().clearTask())
+				else -> startActivity(intentFor<LoginActivity>().newTask().clearTask())
+			}
+		}
+	}
 
-    private fun checkPermission() = runBlocking {
-        if (Build.VERSION.SDK_INT >= 23) {
-            val permissions = arrayOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-            askForPermissions(*permissions) { result ->
-                if (result.isAllGranted(*permissions)) {
-                    FileUtils.createDirectory(PathManager.appDir)
-                }
-                delayToActivity()
-            }
-        } else {
-            FileUtils.createDirectory(PathManager.appDir)
-            delayToActivity()
-        }
-    }
+	private fun checkPermission() = runBlocking {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+			FileUtils.createDirectory(PathManager.appDir)
+			delayToActivity()
+			return@runBlocking
+		}
+		val permissions = arrayOf(Permission.READ_EXTERNAL_STORAGE)
+		askForPermissions(*permissions) { result ->
+			if (result.isAllGranted(*permissions)) {
+				FileUtils.createDirectory(PathManager.appDir)
+			}
+			delayToActivity()
+		}
+	}
 
-    override fun applyImmersionBar(): Boolean {
-        return false
-    }
+	override fun applyImmersionBar(): Boolean {
+		return false
+	}
 }

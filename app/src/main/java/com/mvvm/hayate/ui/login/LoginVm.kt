@@ -9,6 +9,7 @@ import com.mvvm.component.utils.SpUtils
 import com.mvvm.component.view.BaseVm
 import com.mvvm.hayate.R
 import com.mvvm.hayate.manager.ProfileManager
+import com.mvvm.hayate.model.login.LoginResp
 import com.mvvm.hayate.model.repository.LoginRepository
 import com.mvvm.hayate.ui.main.MainActivity
 import kotlinx.coroutines.delay
@@ -49,6 +50,7 @@ class LoginVm(val loginRepository: LoginRepository) : BaseVm() {
 				delay(1000)
 			}.collect {
 				SpUtils.putString(ProfileManager.USERNAME_LAST, username.get().toString())
+				ProfileManager.login(LoginResp(userId = 1, username = "Flame"))
 				startActivity<MainActivity>()
 			}
 		}
