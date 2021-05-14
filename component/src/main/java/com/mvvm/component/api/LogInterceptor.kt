@@ -14,11 +14,9 @@ class LogInterceptor : Interceptor {
         val request = chain.request()
         Logger.w("request:$request")
         val response = chain.proceed(chain.request())
-        val mediaType = response.body()?.contentType()
-        val content = response.body()?.string().toString()
+        val source = response.body()?.source()?.apply { request(Long.MAX_VALUE) }
+        val content = source?.buffer?.clone()?.readString(Charsets.UTF_8)
         Logger.w("response body:$content")
-        return response.newBuilder()
-                .body(ResponseBody.create(mediaType, content))
-                .build()
+        return response
     }
 }
